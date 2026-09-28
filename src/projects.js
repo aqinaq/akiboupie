@@ -1,4 +1,4 @@
-export const profile = { name: 'akbope', location: 'Almaty, Kazakhstan', telegram: 'https://t.me/meuseuk' }
+export const profile = { name: 'Akbope', age: 18, education: 'Astana IT University · Senior year', location: 'Astana, Kazakhstan', telegram: 'https://t.me/meuseuk' }
 
 export const projects = [
   {

@@ -25,7 +25,7 @@ function Header({ theme, toggleTheme }) {
   const [open, setOpen] = useState(false)
   return <header className="site-header">
     <Mark />
-    <div className="header-note"><span>Independent maker</span><span>Almaty · KZ</span></div>
+    <div className="header-note"><span>AITU · Senior year</span><span>Astana · KZ</span></div>
     <button className="menu-button" aria-expanded={open} aria-controls="navigation" onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}</button>
     <nav id="navigation" className={open ? 'nav-open' : ''} aria-label="Main navigation">
       <Link href="/#work" onClick={() => setOpen(false)}>Work</Link>
@@ -66,14 +66,14 @@ function Experiments() {
 }
 
 function About() {
-  return <section id="about" className="about" aria-labelledby="about-title"><div className="about-universe" aria-hidden="true"><span>strategy</span><span>design</span><span>code</span><div>AK</div><i /><i /><i /></div><div className="about-copy"><p className="eyebrow">ABOUT / AKBOPE</p><h2 id="about-title">I like the messy<br />middle between<br /><em>thinking & making.</em></h2><p className="about-lead">I design and build products end to end, with a soft spot for language, learning and tools that make everyday work feel lighter.</p><p>Based in Almaty. Working across product strategy, interface design, frontend and backend engineering—often all within the same idea.</p><dl><div><dt>Current orbit</dt><dd>Product design · Full-stack development</dd></div><div><dt>Interested in</dt><dd>Useful tools · Local digital culture · Responsible AI</dd></div></dl></div></section>
+  return <section id="about" className="about" aria-labelledby="about-title"><figure className="about-portrait"><img src="/akbope-portrait.jpg" alt="Portrait of Akbope" /><figcaption><span>18 years old</span><span>AITU · senior</span><span>Astana</span></figcaption></figure><div className="about-copy"><p className="eyebrow">ABOUT / AKBOPE</p><h2 id="about-title">Hi, I’m Akbope.<br /><em>I design & build.</em></h2><p className="about-lead">I’m an 18-year-old senior-year student at Astana IT University, based in Astana, Kazakhstan.</p><p>I turn ideas into working digital products—from product strategy and interface design to frontend and backend development. I’m especially interested in EdTech, language learning, responsible AI and tools that make everyday work feel simpler.</p><dl><div><dt>Education</dt><dd>Astana IT University · Senior year</dd></div><div><dt>Focus</dt><dd>Product design · Full-stack development</dd></div><div><dt>Interested in</dt><dd>EdTech · Language learning · Responsible AI</dd></div><div><dt>Based in</dt><dd>Astana, Kazakhstan</dd></div></dl></div></section>
 }
 
 function Capabilities() { return <section className="capabilities" aria-label="Capabilities"><p className="eyebrow">WAYS I CAN HELP</p><div>{capabilities.map((group, index) => <article key={group.title}><span>0{index + 1}</span><h3>{group.title}</h3><p>{group.items.join(' · ')}</p></article>)}</div></section> }
 
 function Contact() { return <section id="contact" className="contact" aria-labelledby="contact-title"><div className="contact-star" aria-hidden="true">✦</div><p className="eyebrow">OPEN TO THOUGHTFUL COLLABORATIONS</p><h2 id="contact-title">Have an idea<br />with a pulse?</h2><div className="contact-bottom"><p>Tell me what you are imagining. We can turn the first sketch into something people can actually use.</p><a className="contact-link" href="https://t.me/meuseuk" target="_blank" rel="noreferrer"><span>Message me on Telegram</span><Arrow diagonal /></a></div></section> }
 
-function Footer() { return <footer><Mark /><p>Made with curiosity in Almaty.</p><a href="#main-content">Back to top ↑</a><span>© {new Date().getFullYear()}</span></footer> }
+function Footer() { return <footer><Mark /><p>Made with curiosity in Astana.</p><a href="#main-content">Back to top ↑</a><span>© {new Date().getFullYear()}</span></footer> }
 
 function Home() { return <main id="top"><Hero /><section id="work" className="work" aria-labelledby="work-title"><div className="work-heading"><p className="eyebrow">SELECTED WORLDS / 05</p><h2 id="work-title">Built from<br /><em>question marks.</em></h2><p>Five products exploring how we shop, learn, read and work.</p></div><div className="project-list">{projects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section><Experiments /><About /><Capabilities /><Contact /></main> }
 
