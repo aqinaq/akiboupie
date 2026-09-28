@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akbope-portfolio.keen-mesa-5673.chatgpt.site/sitemap.xml
