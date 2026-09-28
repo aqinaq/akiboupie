@@ -19,7 +19,7 @@ function Link({ href, className = '', children, external = false, onClick: onCli
   return <a href={href} onClick={onClick} className={className} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})} {...props}>{children}</a>
 }
 
-function Mark() { return <Link href="/" className="mark" aria-label="akbope, home"><span>ak</span><i /></Link> }
+function Mark() { return <Link href="/" className="mark" aria-label="Akbope, home"><span>Akbope</span><i /></Link> }
 
 function Header({ theme, toggleTheme }) {
   const [open, setOpen] = useState(false)
@@ -73,7 +73,7 @@ function Capabilities() { return <section className="capabilities" aria-label="C
 
 function Contact() { return <section id="contact" className="contact" aria-labelledby="contact-title"><div className="contact-star" aria-hidden="true">✦</div><p className="eyebrow">OPEN TO THOUGHTFUL COLLABORATIONS</p><h2 id="contact-title">Have an idea<br />with a pulse?</h2><div className="contact-bottom"><p>Tell me what you are imagining. We can turn the first sketch into something people can actually use.</p><div className="contact-links"><a className="contact-link" href="https://t.me/meuseuk" target="_blank" rel="noreferrer"><span>Telegram</span><Arrow diagonal /></a><a className="contact-link" href="https://www.linkedin.com/in/akbope-bakytkeldy-b8a1332aa/" target="_blank" rel="noreferrer"><span>LinkedIn</span><Arrow diagonal /></a><a className="contact-link" href="https://github.com/aqinaq" target="_blank" rel="noreferrer"><span>GitHub</span><Arrow diagonal /></a></div></div></section> }
 
-function Footer() { return <footer><Mark /><p>Made with curiosity in Astana.</p><a href="#main-content">Back to top ↑</a><span>© {new Date().getFullYear()}</span></footer> }
+function Footer() { return <footer><p>Made with curiosity in Astana.</p><a href="#main-content">Back to top ↑</a><span>© {new Date().getFullYear()}</span></footer> }
 
 function Home() { return <main id="top"><Hero /><section id="work" className="work" aria-labelledby="work-title"><div className="work-heading"><p className="eyebrow">SELECTED WORLDS / 05</p><h2 id="work-title">Built from<br /><em>question marks.</em></h2><p>Five products exploring how we shop, learn, read and work.</p></div><div className="project-list">{projects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section><Experiments /><About /><Capabilities /><Contact /></main> }
 
