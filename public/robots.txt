@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://akbope-portfolio.keen-mesa-5673.chatgpt.site/sitemap.xml
+Sitemap: https://akbope-portfolio.moldiromar42.chatgpt.site/sitemap.xml
