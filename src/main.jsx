@@ -75,7 +75,7 @@ function Contact() { return <section id="contact" className="contact" aria-label
 
 function Footer() { return <footer><Mark /><p>Made with curiosity in Almaty.</p><a href="#main-content">Back to top ↑</a><span>© {new Date().getFullYear()}</span></footer> }
 
-function Home() { return <main id="top"><Hero /><section id="work" className="work" aria-labelledby="work-title"><div className="work-heading"><p className="eyebrow">SELECTED WORLDS / 04</p><h2 id="work-title">Built from<br /><em>question marks.</em></h2><p>Four products exploring how we shop, learn, read and work.</p></div><div className="project-list">{projects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section><Experiments /><About /><Capabilities /><Contact /></main> }
+function Home() { return <main id="top"><Hero /><section id="work" className="work" aria-labelledby="work-title"><div className="work-heading"><p className="eyebrow">SELECTED WORLDS / 05</p><h2 id="work-title">Built from<br /><em>question marks.</em></h2><p>Five products exploring how we shop, learn, read and work.</p></div><div className="project-list">{projects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section><Experiments /><About /><Capabilities /><Contact /></main> }
 
 function CaseSection({ number, title, children }) { return <section className="case-section"><span>{number}</span><h2>{title}</h2><div className="case-content">{children}</div></section> }
 

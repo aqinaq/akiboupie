@@ -38,6 +38,24 @@ export const projects = [
     next: 'Improve import resilience, expand reading preferences and validate vocabulary review with longer-term readers.'
   },
   {
+    slug: 'agylshyn', name: 'Agylshyn', label: 'Full-stack learning platform', category: 'Learning · Practice system', year: '2026', visual: 'agylshyn', preview: '/projects/agylshyn.png', status: 'Independent project · Live product', url: 'https://aqinaq.github.io/agylshyn/',
+    description: 'A bilingual practice platform that turns Cambridge grammar, vocabulary and IELTS coursebooks into one connected learning loop.',
+    role: 'Product design, learning-system design, content engineering and full-stack development', capabilities: ['Instant answer checking', 'Progressive hints', 'Mistake practice', 'Spaced repetition', 'Teacher dashboard', 'Kazakh & English', 'Offline PWA'],
+    alt: 'Agylshyn learning platform overview showing its Kazakh-language introduction and course library statistics',
+    overview: 'Agylshyn brings exercises from a broad Cambridge coursebook library into one browser-based workspace. Learners answer, get immediate feedback, revisit mistakes and build long-term recall without moving between disconnected tools.',
+    problem: 'A coursebook provides strong material, but the learning loop around it is fragmented: checking answers, tracking progress, collecting mistakes and knowing what to review next all require separate effort.',
+    audience: 'Kazakh- and English-speaking independent learners, IELTS students and teachers who want a clearer view of practice across multiple coursebooks.',
+    constraints: ['Exercises extracted from source books need careful validation and deterministic repair.', 'Feedback should support learning without revealing every answer too early.', 'The core experience needs to remain useful without requiring an account or a constant connection.'],
+    strategy: 'Treat every book as part of the same practice system. Instant checking creates the first feedback loop; progressive hints preserve productive effort; mistakes and saved words then return through focused practice and spaced repetition.',
+    journey: ['Choose a book', 'Answer', 'Use a hint', 'Check', 'Review mistakes', 'Return with SRS'],
+    decisions: [{title:'One library, one loop',body:'Grammar, vocabulary and IELTS materials share the same progress and review model.'},{title:'Help in stages',body:'Hints reveal structure and first letters before showing the full answer.'},{title:'Progress with evidence',body:'Accuracy, coverage, activity and weak areas stay distinct instead of collapsing into one score.'}],
+    technical: 'A browser-first PWA combines structured exercise data, deterministic content-build tools, instant answer validation, local progress storage, import and export, offline caching and optional account sync. The interface supports both learner practice and a class-level teacher view.',
+    accessibility: 'Inputs have descriptive labels, result changes are announced, keyboard states remain visible and active locations are identified. The bilingual interface, light and dark themes, and mobile navigation keep the experience usable across contexts.',
+    result: 'Live learning platform with a connected book library, mistake review, spaced repetition, progress views, offline support and teacher workflows.',
+    learned: 'A digital learning tool becomes more valuable when it strengthens the practice around trusted material instead of trying to replace the material itself.',
+    next: 'Keep auditing extracted content, refine the review schedule with learner behaviour and test teacher insights with real classes.'
+  },
+  {
     slug: 'aielts', name: 'AIELTS', label: 'AI-assisted learning tool', category: 'AI · Language learning', year: '2026', visual: 'aielts', preview: '/projects/aielts.png', status: 'Independent project · Updated prototype', url: 'https://aielts-sigma.vercel.app/',
     description: 'A bilingual IELTS practice tool with speaking, writing and study modes, giving criterion-level AI feedback to Kazakh-speaking learners.',
     role: 'Product design, AI integration and frontend development', capabilities: ['Speech input', 'Writing analysis', 'Ready-made tasks', 'Study mode', 'Estimated practice band', 'Kazakh & English'],
