@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
 import { projects, experiments, capabilities } from './projects.js'
+import { gameDesignCases } from './gameDesign.js'
 
 const Arrow = ({ diagonal = false }) => <span aria-hidden="true">{diagonal ? '↗' : '→'}</span>
 
@@ -29,6 +30,7 @@ function Header({ theme, toggleTheme }) {
     <button className="menu-button" aria-expanded={open} aria-controls="navigation" onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}</button>
     <nav id="navigation" className={open ? 'nav-open' : ''} aria-label="Main navigation">
       <Link href="/#work" onClick={() => setOpen(false)}>Work</Link>
+      <Link href="/game-design" onClick={() => setOpen(false)}>Game Design</Link>
       <Link href="/#about" onClick={() => setOpen(false)}>About</Link>
       <Link href="/#contact" onClick={() => setOpen(false)}>Contact</Link>
       <button className="theme-button" onClick={toggleTheme} aria-label={`Use ${theme === 'light' ? 'dark' : 'light'} theme`}><i /> {theme === 'light' ? 'Night' : 'Day'}</button>
@@ -77,6 +79,43 @@ function Footer() { return <footer><p>Made with curiosity in Astana.</p><a href=
 
 function Home() { return <main id="top"><Hero /><section id="work" className="work" aria-labelledby="work-title"><div className="work-heading"><p className="eyebrow">SELECTED WORLDS / 05</p><h2 id="work-title">Built from<br /><em>question marks.</em></h2><p>Five products exploring how we shop, learn, read and work.</p></div><div className="project-list">{projects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section><Experiments /><About /><Capabilities /><Contact /></main> }
 
+function GameCaseArt({ item }) {
+  if (item.slug === 'swinging-bridge') return <div className="game-card-art art-bridge" aria-hidden="true"><span className="bridge-line" /><div className="bridge-steps">{[1, 2, 3, 4, 5, 6, 7].map(step => <i key={step}>{step}</i>)}</div><b>SAFETY<br />ROPE</b><small>7 wins · 1 recovery</small></div>
+  if (item.slug === 'make-it-yours') return <div className="game-card-art art-yours" aria-hidden="true"><div className="sofa"><i /><i /><span /></div><div className="swatches"><i /><i /><i /></div><b>SHAPE × COLOUR × PATTERN</b><small>27 curated combinations</small></div>
+  if (item.slug === 'flexible-orders') return <div className="game-card-art art-orders" aria-hidden="true"><div className="order-option"><span>A</span><b>3 bread</b><b>2 cheese</b></div><em>OR</em><div className="order-option"><span>B</span><b>3 bread</b><b>4 cream</b></div><small>One order · two clear choices</small></div>
+  return <div className="game-card-art art-pull-pin" aria-hidden="true"><div className="pin-board"><div className="pin-coins"><i>★</i><i>★</i><i>★</i></div><span className="pin pin-red" /><div className="pin-bombs"><i /><i /></div><span className="pin pin-blue" /><span className="pin-barrier">×</span></div><b>CLEAR<br />THEN<br />COLLECT</b><small>One puzzle · two outcomes</small></div>
+}
+
+function GameDesignCard({ item }) {
+  return <article className={`game-card game-${item.slug}`}>
+    <GameCaseArt item={item} />
+    <div className="game-card-copy">
+      <div className="game-card-topline"><span>{item.number}</span><span>{item.game}</span><span>Independent concept</span></div>
+      <p className="game-card-kicker">{item.subtitle}</p>
+      <h2>{item.title}</h2>
+      <dl className="game-card-details">
+        <div><dt>Problem</dt><dd>{item.problem}</dd></div>
+        <div><dt>Solution</dt><dd>{item.solution}</dd></div>
+        <div><dt>What I did</dt><dd>{item.contribution}</dd></div>
+      </dl>
+      <div className="game-card-actions"><a className="pill pill-solid" href={item.pdf} target="_blank" rel="noreferrer">View case study <Arrow diagonal /></a><a className="plain-link" href={item.pdf} download>Download PDF <Arrow /></a></div>
+    </div>
+  </article>
+}
+
+function GameDesign() {
+  useEffect(() => { document.title = 'Game Design Cases — akbope' }, [])
+  return <main className="game-page">
+    <header className="game-hero">
+      <p className="eyebrow">GAME DESIGN / SELECTED WORK</p>
+      <h1>Game Design<br /><em>Cases</em></h1>
+      <p>I’m interested in casual F2P systems that create meaningful player choice while keeping progression, fairness and business constraints in balance.</p>
+      <div className="game-hero-note"><span>04 case studies</span><span>Mechanics · Systems · Validation</span></div>
+    </header>
+    <section className="game-case-list" aria-label="Game design case studies">{gameDesignCases.map(item => <GameDesignCard item={item} key={item.slug} />)}</section>
+  </main>
+}
+
 function CaseSection({ number, title, children }) { return <section className="case-section"><span>{number}</span><h2>{title}</h2><div className="case-content">{children}</div></section> }
 
 function CaseStudy({ project }) {
@@ -96,7 +135,7 @@ function App() {
   useEffect(() => { const move = event => { document.documentElement.style.setProperty('--x', `${event.clientX}px`); document.documentElement.style.setProperty('--y', `${event.clientY}px`) }; addEventListener('pointermove', move); return () => removeEventListener('pointermove', move) }, [])
   const slug = path.startsWith('/work/') ? path.split('/')[2] : null
   const project = projects.find(item => item.slug === slug)
-  return <><div className="cursor-light" aria-hidden="true" /><a className="skip-link" href="#main-content">Skip to content</a><Header theme={theme} toggleTheme={() => setTheme(theme === 'light' ? 'dark' : 'light')} /><div id="main-content">{path === '/' ? <Home /> : project ? <CaseStudy project={project} /> : <NotFound />}</div><Footer /></>
+  return <><div className="cursor-light" aria-hidden="true" /><a className="skip-link" href="#main-content">Skip to content</a><Header theme={theme} toggleTheme={() => setTheme(theme === 'light' ? 'dark' : 'light')} /><div id="main-content">{path === '/' ? <Home /> : path === '/game-design' || path === '/game-design/' ? <GameDesign /> : project ? <CaseStudy project={project} /> : <NotFound />}</div><Footer /></>
 }
 
 createRoot(document.getElementById('root')).render(<App />)
