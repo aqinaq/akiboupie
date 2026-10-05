@@ -1,6 +1,34 @@
-# akbope portfolio
+# Akbope - product design and full-stack portfolio
 
-An editorial portfolio for a product-minded full-stack developer and designer. Built with React and Vite, with reusable project data in `src/projects.js` and no UI framework.
+[Live portfolio](https://akiboupie.vercel.app/) · [Download CV](https://akiboupie.vercel.app/akbope-detailed-cv.pdf)
+
+![Akbope portfolio social card](public/og-image.png)
+
+An editorial React portfolio positioned around one clear offer: designing and building multilingual learning and productivity products from product definition through UX, frontend, APIs, databases, testing and deployment.
+
+## Selected work
+
+The homepage leads with three working products, ordered by the strength of their verifiable evidence:
+
+1. **Focus10** - full-stack productivity product with a guest workspace, PostgreSQL integrity constraints, RFC 4180 export and 127 automated tests.
+2. **Agylshyn** - bilingual learning system covering 13 books, 937 units or test sections and 21,562 tracked questions.
+3. **Mountain** - private multi-format reader with contextual Kazakh translation, vocabulary review, full-text search and device linking.
+
+DOS Optics is clearly labelled as an independent concept and AIELTS as an experimental responsible-AI product.
+
+## Portfolio structure
+
+```text
+src/main.jsx       routing, homepage sections and case-study components
+src/projects.js    project evidence, metrics, links and offer definitions
+src/styles.css     responsive blue, navy and mint design system
+public/projects/   primary project covers
+public/evidence/   authentic product screens used in case studies
+scripts/           reproducible portfolio and CV PDF builders
+output/pdf/        generated PDF deliverables
+```
+
+Each case study follows the same evidence-oriented sequence: challenge, responsibility, constraints, key decisions, annotated screens, system flow, validation, outcome and reflection. Claims are limited to shipped capabilities, audited content and documented tests; the site does not invent customer metrics or testimonials.
 
 ## Local setup
 
@@ -9,34 +37,28 @@ npm install
 npm run dev
 ```
 
-Create a production build with `npm run build`, then preview it with `npm run preview`.
+Production checks:
 
-## Content edits
+```bash
+npm run check
+npm run build
+```
 
-- Edit all project and case-study copy in `src/projects.js`.
-- Replace the profile-image placeholder in `src/main.jsx`.
-- Add real résumé, GitHub and email links where marked.
-- Replace `example.com` in `public/sitemap.xml` and `public/robots.txt` after choosing a production domain.
-- Update the canonical/social URL and use a PNG social card if the deployment platform does not accept SVG previews.
+Vercel uses `npm run build`, publishes `dist`, and applies the client-side route rewrite in `vercel.json`.
 
-## Deploying to Vercel
+## Content and asset updates
 
-Import the repository, keep the detected Vite settings, and deploy. The build command is `npm run build`; output is `dist`. Configure a rewrite to `index.html` for the client-side case-study routes (Vercel uses `vercel.json` in this project).
+- Edit case-study copy, evidence and links in `src/projects.js`.
+- Keep authentic screenshots in `public/evidence/` and include explicit dimensions in markup.
+- Update both `public/og-image.svg` and its 1200x630 rendered `public/og-image.png` when positioning changes.
+- Rebuild `output/pdf/akbope-portfolio.pdf` with `scripts/build_portfolio_pdf.py` after material portfolio edits.
+- The same builder writes the landscape `akbope-product-fullstack-portfolio.pdf` and one-page `akbope-resume.pdf`; verified project screens live in `public/evidence/`.
+- Keep working products, independent concepts and experimental products explicitly labelled.
 
-## Pre-launch checklist
+## Remaining owner-supplied items
 
-- [ ] Add confirmed GitHub, résumé and email URLs.
-- [ ] Replace the profile placeholder with an owned image and useful alt text.
-- [ ] Replace `example.com` in sitemap and robots files.
-- [ ] Check every external URL in production.
-- [ ] Test at 360 px, 768 px, 1024 px and a wide desktop viewport.
-- [ ] Check keyboard order, mobile menu, focus states and theme control.
-- [ ] Run Lighthouse accessibility and performance audits.
-- [ ] Verify reduced-motion mode and dark/light color contrast.
-- [ ] Confirm metadata and social sharing preview.
-- [ ] Confirm DOS Optics remains labelled as an independent concept.
-- [ ] Confirm AIELTS uses “estimated practice band.”
-- [ ] Confirm OFF//RECORD remains labelled fictional.
-- [ ] Replace code-native previews with owned product screenshots if desired.
+- Add a confirmed professional email to the contact section and structured data.
+- Add real testimonials only after receiving permission from a client or collaborator.
+- Add 45-60 second walkthrough videos for Focus10 and Agylshyn when recordings are available.
 
-No analytics, secrets, testimonials or unverified performance claims are included.
+No analytics, secrets, fabricated testimonials or unverified business results are included.

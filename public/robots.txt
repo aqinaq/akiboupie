@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://akbope-portfolio.moldiromar42.chatgpt.site/sitemap.xml
+Sitemap: https://akiboupie.vercel.app/sitemap.xml

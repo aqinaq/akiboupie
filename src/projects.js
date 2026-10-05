@@ -1,8 +1,17 @@
-export const profile = { name: 'Akbope', age: 18, education: 'Astana IT University · Senior year', location: 'Astana, Kazakhstan', telegram: 'https://t.me/meuseuk', linkedin: 'https://www.linkedin.com/in/akbope-bakytkeldy-b8a1332aa/', github: 'https://github.com/aqinaq' }
+export const profile = {
+  name: 'Akbope',
+  education: 'Astana IT University · Senior year',
+  location: 'Astana, Kazakhstan',
+  availability: 'Available for selected freelance and junior product opportunities',
+  telegram: 'https://t.me/meuseuk',
+  linkedin: 'https://www.linkedin.com/in/akbope-bakytkeldy-b8a1332aa/',
+  github: 'https://github.com/aqinaq',
+  cv: '/akbope-detailed-cv.pdf'
+}
 
-export const projects = [
+const projectCatalog = [
   {
-    slug: 'dos-optics', name: 'DOS Optics', label: 'Independent client concept', category: 'Commerce · Retail experience', year: '2026', visual: 'optics', preview: '/projects/dos-optics.png', status: 'Independent proposal · Updated prototype', url: 'https://dosoptics.vercel.app/',
+    slug: 'dos-optics', name: 'DOS Optics', label: 'Independent concept', category: 'Commerce · Retail experience', year: '2026', visual: 'optics', preview: '/projects/dos-optics.png', status: 'Proposal declined · Independent concept', url: 'https://dosoptics.vercel.app/',
     description: 'A multilingual retail concept for a Kazakhstan eyewear brand, joining a 3D catalog, salon discovery and vision-check booking in one experience.',
     role: 'Product strategy, art direction, UX/UI design and frontend development', capabilities: ['Responsive design', '3D product catalog', 'Kazakh, Russian & English', 'Appointment flow', 'Account & cart prototype'],
     alt: 'Abstract black eyewear frame floating on a cobalt blue field',
@@ -15,7 +24,7 @@ export const projects = [
     decisions: [{title:'Product-first navigation',body:'Frames remain visually dominant while filters and categories stay compact.'},{title:'Local presence',body:'A seven-city directory makes proximity and availability easy to understand.'},{title:'A clear handoff',body:'Appointment prompts appear when a customer has enough context to act.'}],
     technical: 'A responsive, three-language frontend prototype with reusable catalog data, 3D product presentation, filtering, product detail, cart and account states, a seven-city salon directory and a privacy-aware appointment flow.',
     accessibility: 'The direction prioritizes keyboard-reachable controls, visible focus, legible product detail and motion that can be reduced. A production version would validate localized labels and booking consent with users.',
-    result: 'Updated prototype with catalog, lens guide, salon, booking, account and cart journeys. Business results have not been measured; the concept is not an official DOS website.',
+    result: 'DOS Optics declined the proposal. The prototype remains an independent portfolio concept with catalog, lens guide, salon, booking, account and cart journeys. Business results have not been measured; the concept is not an official DOS website.',
     learned: 'A retail experience becomes more useful when digital discovery acknowledges the physical decision that follows it.',
     next: 'Test frame comparison and booking with customers, then integrate live catalog and location data.'
   },
@@ -93,14 +102,98 @@ export const projects = [
   }
 ]
 
+const evidence = {
+  focus10: {
+    codeUrl: 'https://github.com/aqinaq/focus10',
+    typeLabel: 'Working product',
+    responsibility: 'I owned product definition, interaction design, the React interface, Express API, PostgreSQL model, authentication, testing and deployment.',
+    alternatives: [
+      'I rejected a signup-first trial because it hid the product before trust was earned; the guest workspace exposes the complete workflow immediately.',
+      'I rejected an application-only check for concurrent timers because two requests can race; a per-user PostgreSQL advisory lock serializes starts and a partial unique index remains the final invariant.',
+      'I rejected invented customer logos, testimonials and adoption numbers; the marketing site uses verifiable product and test evidence instead.'
+    ],
+    validation: 'The repository documents 127 automated tests against real PostgreSQL via PGlite. They cover guest mode, account conversion, validation, password hashing, session expiry, user isolation, timer invariants, reporting, CSV escaping, security headers and rate limiting.',
+    outcome: 'A live bilingual product with a no-sign-up 30-day guest workspace, account conversion, weekly and 28-day reporting, RFC 4180 CSV export, secure sessions and database-enforced timer integrity.',
+    metrics: ['127 automated tests', 'Advisory lock + partial unique index', '30-day private guest workspace', 'RFC 4180 CSV export'],
+    screens: [
+      { src: '/evidence/focus10-dashboard.png', alt: 'Focus10 dashboard with tasks, projects and a weekly chart', label: '01 / Connected workspace', note: 'Tasks, projects and time records share one working context.' },
+      { src: '/evidence/focus10-timer.png', alt: 'Focus10 active timer controls', label: '02 / Timer state', note: 'The server remains authoritative; returning to the tab resynchronizes timer state.' },
+      { src: '/evidence/focus10-reports.png', alt: 'Focus10 weekly report and project breakdown', label: '03 / Evidence and export', note: 'Weekly reporting stays readable and records remain portable through CSV.' }
+    ],
+    architecture: ['React client', 'Express API', 'Session + ownership checks', 'PostgreSQL invariants', 'Reports + RFC 4180 export']
+  },
+  agylshyn: {
+    codeUrl: 'https://github.com/aqinaq/agylshyn',
+    typeLabel: 'Working product',
+    responsibility: 'I owned the learning-system design, bilingual UX, structured content pipeline, answer validation, progress model, offline behavior, teacher view and deployment checks.',
+    alternatives: [
+      'I kept questions anchored to their source books instead of pretending to replace the books; the product strengthens practice around trusted material.',
+      'I removed content sets whose OCR could not be audited reliably rather than shipping a larger but less trustworthy library.',
+      'I separated accuracy, coverage and weak areas instead of compressing learning into one motivational score.'
+    ],
+    validation: 'The content build reports 13 books, 937 units or test sections and 21,562 tracked questions. Automated checks cover data integrity, answer matching, mobile behavior, dialogs, mistakes, SRS, classes, bilingual explanations, progress persistence, audio and PDF sources; CI runs on pushes and pull requests.',
+    outcome: 'A live bilingual learning platform with instant checking, progressive hints, mistake practice, spaced repetition, offline support, teacher workflows and an audited content pipeline.',
+    metrics: ['21,562 tracked questions', '937 units and test sections', '13 books', 'Automated browser and data checks'],
+    screens: [
+      { src: '/evidence/agylshyn-library.png', alt: 'Agylshyn course library and learning overview', label: '01 / One library', note: 'Grammar, vocabulary and IELTS material enter the same practice system.' },
+      { src: '/projects/agylshyn.png', alt: 'Agylshyn bilingual introduction and course statistics', label: '02 / Clear scope', note: 'Book, unit and question counts are generated from audited content.' }
+    ],
+    architecture: ['Structured book data', 'Practice + instant checks', 'Progressive hints', 'Mistake queue', 'Spaced repetition + teacher view']
+  },
+  mountain: {
+    codeUrl: 'https://github.com/aqinaq/mountain',
+    typeLabel: 'Working product',
+    responsibility: 'I owned product design and the full-stack implementation: multi-format ingestion, the reading surface, translation and vocabulary tools, private libraries, device linking, testing and deployment.',
+    alternatives: [
+      'I parse and sanitize books into owned chapter HTML instead of embedding EPUB pages, which makes word-level interaction and selection reliable.',
+      'I use a one-time device code instead of passwords so a private library can move between devices without a conventional signup flow.',
+      'I keep reading and review in one product instead of sending learners between a reader, dictionary and flashcard app.'
+    ],
+    validation: 'Node tests target silent failure modes: malformed article markup, safe-fetch restrictions, account races, one-time code redemption and schema migration. Database race tests use a real temporary SQLite file.',
+    outcome: 'A working private reader for EPUB, PDF, text, subtitles and articles with contextual Kazakh translation, full-text search, vocabulary export, spaced review, reading progress and offline chapter access.',
+    metrics: ['5 import families', 'One-time device linking', 'SQLite FTS5 search', 'Three-card vocabulary review'],
+    screens: [
+      { src: '/evidence/mountain-library.png', alt: 'Mountain private reading library', label: '01 / Private library', note: 'A reader can start with a sample, import a file or browse public-domain books.' },
+      { src: '/projects/mountain.png', alt: 'Mountain reading view with a contextual word translation', label: '02 / Help in context', note: 'Translation, pronunciation and saving appear without replacing the page.' }
+    ],
+    architecture: ['EPUB / PDF / text / article', 'Sanitized chapters', 'Reader + word index', 'Translation + vocabulary', 'Private library + offline cache']
+  },
+  'dos-optics': {
+    codeUrl: 'https://github.com/aqinaq',
+    typeLabel: 'Independent concept',
+    responsibility: 'I independently created the product strategy, art direction, responsive UX, multilingual information architecture and frontend prototype.',
+    alternatives: ['I connected product discovery to salon and booking actions instead of treating them as unrelated utility pages.'],
+    validation: 'The prototype verifies responsive catalog, localization, filtering, salon discovery, cart, account and appointment states. It is not an official DOS Optics product and has no claimed business results.',
+    outcome: 'The proposal was declined by DOS Optics. Retained as an independent portfolio concept demonstrating a multilingual retail journey across digital discovery and physical service.',
+    metrics: ['3 interface languages', '7-city salon directory', 'Responsive catalog and booking'],
+    screens: [{ src: '/projects/dos-optics.png', alt: 'DOS Optics product catalog concept', label: '01 / Retail journey', note: 'Product discovery leads toward a nearby salon and vision-check booking.' }]
+  },
+  aielts: {
+    codeUrl: 'https://github.com/aqinaq/aielts',
+    typeLabel: 'Experimental product',
+    responsibility: 'I owned the bilingual product UX, speech and writing workflows, structured model outputs and responsible scoring language.',
+    alternatives: ['I use estimated practice band and criterion-level explanations instead of presenting model output as an official IELTS score.'],
+    validation: 'The prototype verifies the speaking, writing and study flows. AI feedback has not been independently validated against official IELTS assessment.',
+    outcome: 'A working responsible-AI prototype that turns a model response into bounded, criterion-level practice guidance.',
+    metrics: ['Speaking and writing modes', 'Kazakh and English', 'Criterion-level feedback'],
+    screens: [{ src: '/projects/aielts.png', alt: 'AIELTS estimated practice band interface', label: '01 / Bounded feedback', note: 'The interface explains criteria and limitations before the learner acts on a score.' }]
+  }
+}
+
+const projectOrder = ['focus10', 'agylshyn', 'mountain', 'dos-optics', 'aielts']
+
+export const projects = projectOrder.map(slug => {
+  const project = projectCatalog.find(item => item.slug === slug)
+  return { ...project, ...evidence[slug], featured: projectOrder.indexOf(slug) < 3 }
+})
+
 export const experiments = [
   { name: 'OFF//RECORD', label: 'Fictional · Editorial design experiment', url: 'https://qedqed.netlify.app/', description: 'A fictional independent culture magazine exploring editorial typography, art direction and responsive storytelling.' },
   { name: 'Tesokeu', label: 'Reading-interface experiment', url: 'https://tesokeu.vercel.app/', description: 'A calm focus reader with a personal bookshelf, adjustable one-word-at-a-time pacing, bookmarks and reading insights.' }
 ]
 
 export const capabilities = [
-  { title: 'Product', items: ['Product definition', 'User flows', 'Prototyping', 'Usability testing'] },
-  { title: 'Design', items: ['Interface design', 'Responsive systems', 'Accessibility', 'Interaction design'] },
-  { title: 'Engineering', items: ['Frontend development', 'Backend APIs', 'Authentication', 'Relational databases', 'Automated testing', 'Deployment'] },
-  { title: 'AI', items: ['Structured AI feedback', 'Speech & text workflows', 'Prompt & output design', 'Responsible AI UX'] }
+  { title: 'Product definition sprint', summary: 'Turn an early idea into a focused build plan.', items: ['Audience and problem framing', 'Core user journey', 'Feature priorities', 'Scope and delivery plan'] },
+  { title: 'Product UI and prototype', summary: 'Make the experience tangible enough to test and align.', items: ['Responsive interface', 'Interaction design', 'Accessible states', 'Testable prototype'] },
+  { title: 'MVP design and development', summary: 'Ship a working first product with one accountable owner.', items: ['Frontend and API', 'Database and authentication', 'Automated testing', 'Deployment'] }
 ]
