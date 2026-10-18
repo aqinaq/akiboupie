@@ -4,6 +4,7 @@ import './styles.css'
 import './studio.css'
 import Meadow from './Meadow.jsx'
 import './meadow.css'
+import './caseStudy.css'
 import { projects } from './projects.js'
 
 const Arrow = ({ diagonal = false }) => <span aria-hidden="true">{diagonal ? '↗' : '→'}</span>
@@ -47,6 +48,10 @@ function ProjectVisual({ project, compact = false }) {
   </div>
 }
 
+function StoryHeader() {
+  return <header className="story-header"><Link href="/" className="story-signature">Akbope</Link><span>Collected works</span><Link href="/#work">← Return to the meadow</Link></header>
+}
+
 
 
 function Footer() { return <footer><p>Made with curiosity in Astana.</p><a href="#main-content">Back to top ↑</a><span>© {new Date().getFullYear()}</span></footer> }
@@ -68,8 +73,8 @@ function CaseStudy({ project }) {
   useEffect(() => { document.title = `${project.name} — akbope` }, [project])
   const nextProject = projects[(projects.indexOf(project) + 1) % projects.length]
   return <main className="case-page">
-    <div className="case-crumb"><Link href="/#work">← All work</Link><span>{project.typeLabel}</span></div>
-    <header className="case-hero"><p className="eyebrow">{project.category}</p><h1>{project.name}</h1><p>{project.description}</p><dl><div><dt>Responsibility</dt><dd>{project.role}</dd></div><div><dt>Status</dt><dd>{project.status}</dd></div><div><dt>Year</dt><dd>{project.year}</dd></div></dl><div className="case-hero-actions"><a className="pill pill-solid" href={project.url} target="_blank" rel="noreferrer">View live product <Arrow diagonal /></a>{project.codeUrl && <a className="plain-link" href={project.codeUrl} target="_blank" rel="noreferrer">View code and README <Arrow diagonal /></a>}</div></header>
+    <div className="case-crumb"><span>Volume {String(projects.indexOf(project) + 1).padStart(2, '0')} · A project chronicle</span><span>{project.typeLabel}</span></div>
+    <header className="case-hero"><div className="story-seal" aria-hidden="true">A</div><p className="eyebrow">{project.category}</p><h1>{project.name}</h1><p>{project.description}</p><div className="story-flourish" aria-hidden="true">✧</div><dl><div><dt>Responsibility</dt><dd>{project.role}</dd></div><div><dt>Status</dt><dd>{project.status}</dd></div><div><dt>Year</dt><dd>{project.year}</dd></div></dl><div className="case-hero-actions"><a className="pill pill-solid" href={project.url} target="_blank" rel="noreferrer">View live product <Arrow diagonal /></a>{project.codeUrl && <a className="plain-link" href={project.codeUrl} target="_blank" rel="noreferrer">View code and README <Arrow diagonal /></a>}</div></header>
     <ProjectVisual project={project} />
     <div className="case-body">
       <CaseSection number="01" title="Challenge"><p>{project.overview}</p><p className="callout">{project.problem}</p><p>{project.audience}</p></CaseSection>
@@ -96,6 +101,7 @@ function App() {
   useEffect(() => { if (path === '/') document.title = 'akbope — Product designer & full-stack developer'; if (location.hash && path === '/') requestAnimationFrame(() => document.querySelector(location.hash)?.scrollIntoView()) }, [path])
   const slug = path.startsWith('/work/') ? path.split('/')[2] : null
   const project = projects.find(item => item.slug === slug)
+  if (project) return <div className="case-world"><a className="skip-link" href="#main-content">Skip to content</a><StoryHeader /><div id="main-content"><CaseStudy key={project.slug} project={project} /></div><footer className="story-footer"><span>Akbope · Astana · {new Date().getFullYear()}</span><a href="#main-content">Back to the beginning ↑</a></footer></div>
   return <><a className="skip-link" href="#main-content">Skip to content</a>{path !== '/' && <Header theme={theme} toggleTheme={() => setTheme(theme === 'light' ? 'dark' : 'light')} />}<div id="main-content">{path === '/' ? <Home theme={theme} toggleTheme={() => setTheme(theme === 'light' ? 'dark' : 'light')} /> : project ? <CaseStudy project={project} /> : <NotFound />}</div>{path !== '/' && <Footer />}</>
 }
 
