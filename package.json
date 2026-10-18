@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "three": "^0.186.1",
+    "vite": "latest"
   },
   "devDependencies": {
     "@eslint/js": "latest",

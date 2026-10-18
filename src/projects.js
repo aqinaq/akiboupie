@@ -1,3 +1,5 @@
+import additionalProjects from './additionalProjects.js'
+
 export const profile = {
   name: 'Akbope',
   education: 'Astana IT University · Senior year',
@@ -11,10 +13,10 @@ export const profile = {
 
 const projectCatalog = [
   {
-    slug: 'dos-optics', name: 'DOS Optics', label: 'Independent concept', category: 'Commerce · Retail experience', year: '2026', visual: 'optics', preview: '/projects/dos-optics.png', status: 'Proposal declined · Independent concept', url: 'https://dosoptics.vercel.app/',
+    slug: 'dos-optics', name: 'DOS Optics', label: 'Independent concept', category: 'Commerce · Retail experience', year: '2026', visual: 'optics', preview: '/evidence/dos-optics.png', status: 'Proposal declined · Independent concept', url: 'https://dosoptics.vercel.app/',
     description: 'A multilingual retail concept for a Kazakhstan eyewear brand, joining a 3D catalog, salon discovery and vision-check booking in one experience.',
     role: 'Product strategy, art direction, UX/UI design and frontend development', capabilities: ['Responsive design', '3D product catalog', 'Kazakh, Russian & English', 'Appointment flow', 'Account & cart prototype'],
-    alt: 'Abstract black eyewear frame floating on a cobalt blue field',
+    alt: 'DOS Optics multilingual eyewear catalog concept',
     overview: 'DOS Optics reframes an eyewear site as a connected customer journey: discover a frame, find a nearby salon, and book a vision check without losing context.',
     problem: 'Retail discovery, location information and appointment booking often live in separate journeys. The concept brings them into one coherent path.',
     audience: 'Kazakhstan customers comparing frames online and deciding when and where to visit a physical salon.',
@@ -65,10 +67,10 @@ const projectCatalog = [
     next: 'Keep auditing extracted content, refine the review schedule with learner behaviour and test teacher insights with real classes.'
   },
   {
-    slug: 'aielts', name: 'AIELTS', label: 'AI-assisted learning tool', category: 'AI · Language learning', year: '2026', visual: 'aielts', preview: '/projects/aielts.png', status: 'Independent project · Updated prototype', url: 'https://aielts-sigma.vercel.app/',
+    slug: 'aielts', name: 'AIELTS', label: 'AI-assisted learning tool', category: 'AI · Language learning', year: '2026', visual: 'aielts', preview: '/evidence/aielts.png', status: 'Independent project · Updated prototype', url: 'https://aielts-sigma.vercel.app/',
     description: 'A bilingual IELTS practice tool with speaking, writing and study modes, giving criterion-level AI feedback to Kazakh-speaking learners.',
     role: 'Product design, AI integration and frontend development', capabilities: ['Speech input', 'Writing analysis', 'Ready-made tasks', 'Study mode', 'Estimated practice band', 'Kazakh & English'],
-    alt: 'Estimated practice band interface with an audio waveform on a deep violet field',
+    alt: 'AIELTS bilingual speaking and writing practice interface',
     overview: 'AIELTS helps Kazakh-speaking learners practice from their own prompt or a ready-made task, then understand stronger speaking and writing responses through criterion-level feedback and concrete corrections.',
     problem: 'Generic scores say little about what to change. Learners need feedback they can understand, trace to their response and turn into the next practice step.',
     audience: 'Kazakh-speaking IELTS learners who want more detailed practice feedback between lessons or independent study sessions.',
@@ -166,7 +168,7 @@ const evidence = {
     validation: 'The prototype verifies responsive catalog, localization, filtering, salon discovery, cart, account and appointment states. It is not an official DOS Optics product and has no claimed business results.',
     outcome: 'The proposal was declined by DOS Optics. Retained as an independent portfolio concept demonstrating a multilingual retail journey across digital discovery and physical service.',
     metrics: ['3 interface languages', '7-city salon directory', 'Responsive catalog and booking'],
-    screens: [{ src: '/projects/dos-optics.png', alt: 'DOS Optics product catalog concept', label: '01 / Retail journey', note: 'Product discovery leads toward a nearby salon and vision-check booking.' }]
+    screens: [{ src: '/evidence/dos-optics.png', alt: 'DOS Optics product catalog concept', label: '01 / Retail journey', note: 'Product discovery leads toward a nearby salon and vision-check booking.' }]
   },
   aielts: {
     codeUrl: 'https://github.com/aqinaq/aielts',
@@ -176,14 +178,14 @@ const evidence = {
     validation: 'The prototype verifies the speaking, writing and study flows. AI feedback has not been independently validated against official IELTS assessment.',
     outcome: 'A working responsible-AI prototype that turns a model response into bounded, criterion-level practice guidance.',
     metrics: ['Speaking and writing modes', 'Kazakh and English', 'Criterion-level feedback'],
-    screens: [{ src: '/projects/aielts.png', alt: 'AIELTS estimated practice band interface', label: '01 / Bounded feedback', note: 'The interface explains criteria and limitations before the learner acts on a score.' }]
+    screens: [{ src: '/evidence/aielts.png', alt: 'AIELTS estimated practice band interface', label: '01 / Bounded feedback', note: 'The interface explains criteria and limitations before the learner acts on a score.' }]
   }
 }
 
-const projectOrder = ['focus10', 'agylshyn', 'mountain', 'dos-optics', 'aielts']
+const projectOrder = ['focus10', 'agylshyn', 'mountain', 'akanki', 'joryq', 'mammamia', 'bagyt', 'dos-optics', 'aielts']
 
 export const projects = projectOrder.map(slug => {
-  const project = projectCatalog.find(item => item.slug === slug)
+  const project = [...projectCatalog, ...additionalProjects].find(item => item.slug === slug)
   return { ...project, ...evidence[slug], featured: projectOrder.indexOf(slug) < 3 }
 })
 
