@@ -1,10 +1,13 @@
+import { localizeProject } from './projects.kk.js'
+import { language } from './i18n.js'
+import { t } from './i18n.js'
 import additionalProjects from './additionalProjects.js'
 
 export const profile = {
   name: 'Akbope',
-  education: 'Astana IT University · Senior year',
-  location: 'Astana, Kazakhstan',
-  availability: 'Available for selected freelance and junior product opportunities',
+  education: t("Astana IT University · Senior year"),
+  location: t("Astana, Kazakhstan"),
+  availability: t("Available for selected freelance and junior product opportunities"),
   telegram: 'https://t.me/meuseuk',
   linkedin: 'https://www.linkedin.com/in/akbope-bakytkeldy-b8a1332aa/',
   github: 'https://github.com/aqinaq',
@@ -15,7 +18,7 @@ const projectCatalog = [
   {
     slug: 'dos-optics', name: 'DOS Optics', label: 'Independent concept', category: 'Commerce · Retail experience', year: '2026', visual: 'optics', preview: '/evidence/dos-optics.png', status: 'Proposal declined · Independent concept', url: 'https://dosoptics.vercel.app/',
     description: 'A multilingual retail concept for a Kazakhstan eyewear brand, joining a 3D catalog, salon discovery and vision-check booking in one experience.',
-    role: 'Product strategy, art direction, UX/UI design and frontend development', capabilities: ['Responsive design', '3D product catalog', 'Kazakh, Russian & English', 'Appointment flow', 'Account & cart prototype'],
+    role: 'Product strategy, art direction, UX/UI design and frontend development', capabilities: ['Responsive design', '3D product catalog', t("Kazakh, Russian & English"), 'Appointment flow', 'Account & cart prototype'],
     alt: 'DOS Optics multilingual eyewear catalog concept',
     overview: 'DOS Optics reframes an eyewear site as a connected customer journey: discover a frame, find a nearby salon, and book a vision check without losing context.',
     problem: 'Retail discovery, location information and appointment booking often live in separate journeys. The concept brings them into one coherent path.',
@@ -94,7 +97,7 @@ const projectCatalog = [
     audience: 'Freelancers and independent professionals balancing several projects and needing a practical view of billable and non-billable work.',
     constraints: ['Timing must feel instant and reliable.', 'Sessions and account data require secure handling.', 'Reports need to remain understandable with sparse or imperfect data.'],
     strategy: 'Connect each running timer to a concrete task and project. Let people experience the complete workflow in a private 30-day demo workspace before asking them to create an account.',
-    journey: ['Plan task', 'Start timer', 'Work', 'Stop', 'Review week', 'Export'],
+    journey: ['Plan task', 'Start timer', t("Work"), 'Stop', 'Review week', 'Export'],
     decisions: [{title:'One-click tracking',body:'The primary action starts time with minimal setup.'},{title:'Context travels with time',body:'Every record remains connected to its task and project.'},{title:'Ownership by default',body:'CSV export gives users a portable copy of their own records.'}],
     technical: 'A React frontend connects to an Express API and PostgreSQL data model. Guest workspaces, account conversion, protected sessions, reporting queries, CSV export, a guided tour and automated API tests cover the core product path.',
     accessibility: 'Timer state is communicated with text as well as color. Controls are keyboard reachable, and account/session behavior is designed around clear ownership and predictable sign-out.',
@@ -186,7 +189,8 @@ const projectOrder = ['focus10', 'agylshyn', 'mountain', 'akanki', 'joryq', 'mam
 
 export const projects = projectOrder.map(slug => {
   const project = [...projectCatalog, ...additionalProjects].find(item => item.slug === slug)
-  return { ...project, ...evidence[slug], featured: projectOrder.indexOf(slug) < 3 }
+  const entry = { ...project, ...evidence[slug], featured: projectOrder.indexOf(slug) < 3 }
+  return language === 'kk' ? localizeProject(entry) : entry
 })
 
 export const experiments = [

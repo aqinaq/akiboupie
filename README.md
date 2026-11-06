@@ -4,7 +4,9 @@
 
 ![Akbope portfolio social card](public/og-image.png)
 
-A fullscreen, text-free 3D алқап (meadow), built with Three.js: large colorful flower beds, butterflies, grass, distant trees, a winding stone path, and an ornamental сандық at the center. Opening the chest moves the camera into an overhead inspection view; the letter, journal, and envelope rest inside its lined interior and can be selected directly. Flower beds are sparse, with roughly 70% fewer blooms. The countryside includes six distinct flower forms, ferns, reeds, wheat, mushrooms, a pond, a stone arch, a cart, full-size two-storey cottages, distant towers and a windmill. Textured hills carry surface-aligned woodland, shrubs, boulders and winding trails; tree roots and grass follow the actual hill height rather than being buried inside it. A playable 3D garden lets visitors plant seeds, fill water at the well or pond, grow flowers, release winged seeds with the mill and catch them. Animated growth, watering, wind and harvest happen directly in the meadow. Garden progress persists locally. The meadow has no visible HUD, inventory bar, movement pad, or utility buttons. Clicking each of the four houses enters a full-screen Three.js room: sliding stone 2048, a six-pair alchemy memory game, a solvable nine-crystal lights puzzle, or a 12-level timing/stacking game. Play directly on the objects, swipe or use arrows for 2048, and tap/Space to stack leather-bound 3D books with gilded covers and layered page edges (20% faster movement). The room's physical door exits and its hourglass restarts (Escape/R also work); scores persist locally. Each room has its own geometry, palette and lighting: a stone forge with fire and tools for 2048; a purple alchemy lab with a bubbling cauldron, stained glass and potion shelves; a midnight observatory with constellations and a moving brass orrery; and a warm library with velvet curtains, a rug and bookcases. Playing surfaces, floors and in-world signs follow each theme, with no parchment panels or screen HUD. Each house has a full-height exit mounted in the rear wall, an interactive rolled biography on the desk, and a wall cabinet containing all nine real portfolio projects. Projects appear as cast metal seals in the forge, liquid-filled bottles in the lab, miniature planets in the observatory, and leather books in the library. Selecting one moves the camera to the actual shelf object and opens its real preview, role, capabilities and project/case-study links; closing restores the game view. Reading an artifact pauses game motion and pending memory reveals without resetting progress. The book tower stands on the left so even a completed tower leaves every portfolio object reachable. The remaining village utilities retain their local writing and timer data. The lantern, mill, bucket, pond and mushrooms retain their physical interactions. The chest adds hand-forged fittings, engraved corners, woven lining, scrolls, coins, an inkpot and feather, plus an interactive compass, key and potion. The overworld is free of overlaid controls; portfolio text appears only inside opened objects. Walk with arrow keys or WASD, drag with two fingers to walk on touchscreens, and drag with one finger or the mouse to look around. Click the chest, press Enter, or tap its wooden body to reveal a personal letter, a project journal, and a contact envelope. The chest uses brown woodgrain, aged brass, a curved parchment letter, a leather-bound book with layered page edges, and a folded wax-sealed envelope. The letter unfolds over the meadow. The book opens its cover and turns through 18 illustrated pages for all nine projects: a two-page spread on desktop, one leaf at a time on mobile, turned by clicking the paper itself or its folded corners, keyboard arrows, or a horizontal swipe. The paper bends as 22 connected 3D surfaces, with aligned printing on both sides and moving shadows; the underlying spread is revealed as it turns. Separate arrow controls are removed. The letter scrolls as one complete sheet, keeping its fold marks attached to the content. Full case-study and live-project links remain available. System reduced-motion settings are respected, and the portfolio remains accessible when WebGL is unavailable.
+A fullscreen, interactive 3D fantasy meadow, built with Three.js. The current art direction uses a shared four-step cel-shading ramp, a painted blue sky, sculpted clouds, layered cliffs, ivory-and-timber cottages, luminous elemental glass, ruins and a floating crystal waystone. All geometry is authored locally. The chest and portfolio objects remain interactive.
+
+The meadow includes: large colorful flower beds, butterflies, grass, distant trees, a winding stone path, and an ornamental сандық at the center. Opening the chest moves the camera into an overhead inspection view; the letter, journal, and envelope rest inside its lined interior and can be selected directly. Flower beds are sparse, with roughly 70% fewer blooms. The countryside includes six distinct flower forms, ferns, reeds, wheat, mushrooms, a pond, a stone arch, a cart, full-size two-storey cottages, distant towers and a windmill. Textured hills carry surface-aligned woodland, shrubs, boulders and winding trails; tree roots and grass follow the actual hill height rather than being buried inside it. Surrounding buildings and props are decorative. Games, garden progression and village utilities have been removed; the chest provides access to the biography, projects and contact details.
 
 ## Selected work
 
@@ -27,18 +29,11 @@ src/additionalProjects.js  newer project case studies from the updated PDFs
 src/styles.css     base responsive layouts
 src/Meadow.jsx     meadow controls, paper letter, project journal and contact
 src/meadowScene.js Three.js scenery, chest, movement, picking and animation
+src/fantasyArt.js shared cel shading, gradient sky, clouds, cliffs and elemental scenery
 src/meadowDetails.js instanced plants, countryside props and interactive keepsakes
 src/HouseGame.jsx  full-screen 3D house-game lifecycle and accessible controls
-src/houseGameScene.js medieval room, object picking and four animated minigames
 src/RoomArtifact.jsx rolled biography and themed project detail dialogs
-src/houseArtifacts.js wall-mounted door, biography scroll and nine themed project objects
-src/houseRooms.js  four distinct room designs, palettes, lighting and animated decor
-src/houseGameRules.js pure 2048, crystal and tower rules
-src/MeadowGarden.js persistent 3D planting, watering, growth, wind and harvesting game
-src/meadow.css     responsive meadow and game controls
-src/VillageTools.jsx useful village rooms and persistent session state
-src/villageState.js validated local save data, local dates and focus deadlines
-src/village.css    parchment room layouts and utility controls
+src/meadow.css     responsive meadow and portfolio controls
 src/TreasureBook.jsx illustrated book, keyboard/swipe navigation and page turns
 src/treasures.css  parchment, leather binding, unfolding and turning animations
 public/textures/  locally authored paper surface
@@ -87,3 +82,11 @@ No analytics, secrets, fabricated testimonials or unverified business results ar
 ## Font credit
 
 MedievalSharp by Wojciech Kalinowski is self-hosted from the [Google Fonts repository](https://github.com/google/fonts/tree/main/ofl/medievalsharp) under the SIL Open Font License. The license is included at `public/fonts/MedievalSharp-OFL.txt`.
+
+## Languages and typography
+
+The website defaults to Kazakh and supports English via the KK / EN control, including portfolio case studies, accessible controls and text drawn in the 3D scenes. Language is saved under `akbope-language`; `?lang=kk` and `?lang=en` override it for shareable links. Changing language reloads the scene and preserves the open panel; portfolio content stays accessible in either language. Project screenshots and downloaded CV files retain their source language. System sans-serif fonts support Kazakh and Latin without remote font requests.
+
+Run `node --test scripts/i18n.test.mjs` for locale, project-coverage and persistence checks.
+
+The meadow flowers use six sculpted bloom styles with stems and rounded leaves. Click or tap a flower head to release dust in its petal color. Flower picking respects nearer interactive objects, uses a fixed 384-particle pool, and reduces the burst to a stationary fade when reduced motion is enabled. Run `node --test scripts/meadowFlowers.test.mjs` to check picking, color matching, particle limits and fading.

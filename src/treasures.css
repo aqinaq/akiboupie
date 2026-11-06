@@ -116,3 +116,8 @@
 .meadow-dialog .personal-letter h2{font-family:var(--manuscript-heading);font-style:normal;color:#72392b;font-size:37px;letter-spacing:-.5px}
 .meadow-dialog .letter-date{color:#873c29;border-bottom:3px double #9f783e66;padding-bottom:8px}
 @media(max-width:700px){.letter-scroll{max-height:calc(100svh - 112px)}.meadow-dialog .personal-letter h2{font-size:29px}.book-page-content:before{inset:59px 13px 34px}.book-page-content:after{left:7px}.page-corner{width:48px;height:48px}.book-folio{top:calc(100% + 28px)}}
+@media(max-width:700px){
+  .meadow-dialog .meadow-dialog-close{width:44px;height:44px;right:-8px;top:-48px}
+  .meadow-home .meadow-panel-work{width:calc(100% - 38px)}
+  .book-page-content{padding-inline:clamp(18px,6vw,29px)}
+}
