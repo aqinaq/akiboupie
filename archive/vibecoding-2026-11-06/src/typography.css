@@ -1,0 +1,17 @@
+/* Local system fonts cover Kazakh and Latin without a remote font dependency. */
+:root{--site-font:'Avenir Next','Segoe UI',Arial,sans-serif}
+body,.meadow-home{font-family:var(--site-font);--antique-serif:var(--site-font);--manuscript-heading:var(--site-font)}
+#root :is(h1,h2,h3,h4,p,a,button,input,textarea,label,span,small,strong,em,b,dt,dd,output,blockquote,figcaption,nav,li){font-family:var(--site-font)}
+#root :is(.personal-letter h2,.personal-letter p,.letter-signoff,.contact-letter h2,.contact-letter p,.book-story,.book-subtitle,.book-chapter,.book-colophon dt,.book-plate-note,.book-inscribed-links a,.village-sheet,.village-heading>p:last-child){font-style:normal}
+#root :is(.personal-letter h2,.contact-letter h2,.village-sheet h2,.book-page-content h2){font-weight:600;letter-spacing:-.035em;line-height:1.2}
+#root :is(.personal-letter p,.book-story){font-size:16px;line-height:1.8}
+#root .book-story:first-letter{float:none;font:inherit;padding:0;color:inherit}
+#root .language-switch{position:fixed;z-index:30;top:max(18px,env(safe-area-inset-top));left:max(18px,env(safe-area-inset-left));display:flex;align-items:center;gap:3px;width:max-content;padding:4px;border:1px solid #edccec80;border-radius:30px;background:#30213ee8;color:#d8bcdf;box-shadow:0 4px 18px #1d0e3333;backdrop-filter:blur(12px);font:12px/1 var(--site-font)}
+#root .language-switch button{display:grid;place-items:center;min-width:44px;min-height:36px;padding:8px 12px;border:0;border-radius:24px;box-shadow:none;background:transparent;color:#e6d6ee;font:600 12px/1 var(--site-font);cursor:pointer;letter-spacing:.05em}
+#root .language-switch button[aria-pressed=true]{background:#eed0e9;color:#35203f}
+#root .language-switch button:hover{background:#b28cbd50;color:#fff}
+#root .language-switch button:focus-visible{outline:2px solid #fff1fc;outline-offset:2px}
+#root .language-switch-inline{position:static;flex-shrink:0}
+#root dialog>.language-switch{position:absolute;top:-52px;left:0}
+#root :is(.meadow-game-dialog,.house-artifact-dialog)>.language-switch{position:fixed;top:16px;left:16px}
+@media(max-width:700px){#root .language-switch{top:12px;left:12px}#root .language-switch button{min-height:40px}#root .story-header{flex-wrap:wrap;gap:14px}#root .story-header .language-switch{order:3}#root .book-story{font-size:14px;line-height:1.65}}

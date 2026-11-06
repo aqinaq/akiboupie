@@ -1,0 +1,46 @@
+/* A readable journal floats above the studio workbench while its beam keeps it in the world. */
+.world-hologram-anchor{position:absolute;inset:0;z-index:7;pointer-events:none;--source-x:50vw;--source-y:72svh}
+.world-hologram-beam{position:absolute;left:calc(var(--source-x) - 200px);top:100px;width:400px;height:max(120px,calc(var(--source-y) - 100px));clip-path:polygon(0 0,100% 0,51% 100%,49% 100%);background:linear-gradient(0deg,#f4bddd80,#efc8db1a 70%,transparent);pointer-events:none;filter:drop-shadow(0 0 15px #eab4cd)}
+.holo-gallery{--holo:#945c77;position:absolute;top:82px;left:50%;transform:translateX(-50%);width:min(980px,calc(100% - 48px));max-height:calc(100svh - 110px);overflow:auto;overscroll-behavior:contain;pointer-events:auto;padding:24px;color:#493c48;background:linear-gradient(125deg,#fff9f2fa,#f5e9effa);border:1px solid #c99eaf99;border-radius:10px;box-shadow:0 0 36px #f4c6db44,0 18px 70px #5f405b40,inset 0 1px #fffaf8aa;backdrop-filter:blur(16px);scrollbar-width:thin;scrollbar-color:#b78a9f #f4e7ed;transform-origin:50% 50%;animation:holo-materialize 1.05s cubic-bezier(.16,.75,.2,1) both}
+.holo-header{display:flex;justify-content:space-between;align-items:start;gap:20px;padding-bottom:20px;border-bottom:1px solid #b48b9b40}
+.holo-kicker{margin:0 0 8px;color:#925a76;font-size:10px;letter-spacing:.16em}
+.holo-header h2{margin:0;color:#493c48;font-size:23px;line-height:1.3;font-weight:500;letter-spacing:-.02em}
+.holo-header #holo-intro{margin:8px 0 0;color:#776171;font-size:13px;line-height:1.5}
+.holo-close{display:flex;align-items:center;gap:12px;flex-shrink:0;min-height:44px;padding:8px 12px;border:1px solid #bd9baa77;border-radius:5px;background:#f1dfe7;color:#65475c;font-size:11px;cursor:pointer}.holo-close span{font-size:24px}.holo-close:hover{background:#e8cfdd}
+.holo-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:26px;align-items:center;padding:22px 0}
+.holo-stage{min-width:0;perspective:1200px}
+.holo-screen{position:relative;margin:0;background:#f8eff2;border:1px solid #c69faf99;border-radius:6px;box-shadow:0 0 22px #c794ac22;transform:rotateY(3deg)}
+.holo-screen-bar{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-bottom:1px solid #b58b9d44;font-size:10px;letter-spacing:.05em;color:#76566c}
+.holo-image{position:relative;margin:6px;overflow:hidden;background:#efe2e9;aspect-ratio:16/10;border-radius:3px}.holo-image img{width:100%;height:100%;object-fit:contain;display:block}
+.holo-scan{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 22px #c895ac18}
+.holo-screen figcaption{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;font-size:11px;color:#725c6b;line-height:1.4}
+.holo-corner{position:absolute;width:20px;height:20px;border:solid #925a76;pointer-events:none}.corner-tl{left:-2px;top:-2px;border-width:2px 0 0 2px;border-radius:6px 0 0}.corner-br{right:-2px;bottom:-2px;border-width:0 2px 2px 0;border-radius:0 0 6px}
+.holo-info{min-width:0}.holo-index{display:flex;align-items:center;gap:10px;color:#806879;font-size:10px;letter-spacing:.14em}.holo-index span{color:#925a76}
+.holo-info h3{margin:10px 0 8px;font-size:clamp(26px,3vw,36px);font-weight:500;line-height:1.1;letter-spacing:-.03em;color:#493c48}.holo-category{font-size:12px;color:var(--holo);line-height:1.4;margin:0 0 12px}
+.holo-description{font-size:14px;line-height:1.65;color:#574654;margin:0 0 14px}.holo-info dl{margin:0 0 12px;border-top:1px solid #b58b9d44;padding-top:12px}.holo-info dt{font-size:11px;color:#806879;margin-bottom:5px}.holo-info dd{font-size:12px;line-height:1.5;margin:0;color:#574654}
+.holo-status{font-size:11px;line-height:1.5;color:#796471;margin:0 0 16px}.holo-status i{display:none}
+.holo-links{display:flex;gap:8px;flex-wrap:wrap}.holo-links a{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:44px;padding:10px 13px;font-size:12px;text-decoration:none;color:#65475c;border:1px solid #c49eae88;border-radius:4px;background:#f7e9ef}.holo-links a:first-child{background:#925a76;color:#fff9f3;border-color:#925a76}.holo-links a:hover{box-shadow:0 0 15px #b5769430}
+.holo-collection-label{display:flex;justify-content:space-between;gap:12px;padding:14px 0 10px;border-top:1px solid #b48b9b40;font-size:12px;color:#72566a}
+.holo-navigation{display:flex;align-items:center;gap:10px}.holo-arrow{flex-shrink:0;width:44px;height:44px;border:1px solid #c49eae88;background:#f1dfe7;color:#65475c;border-radius:50%;font-size:21px;cursor:pointer}
+.holo-project-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));flex:1;min-width:0;gap:6px}.holo-project-list button{display:flex;align-items:center;gap:7px;min-height:44px;min-width:0;padding:8px;border:1px solid #c49eae55;border-radius:4px;background:#fff8f8;color:#654e61;font-size:11px;cursor:pointer;text-align:left;overflow-wrap:anywhere}.holo-project-list button span{font-size:9px;color:#94778a}.holo-project-list button[aria-current]{border-color:#925a76;background:#ead2df;color:#573c51}.holo-navigation button:hover{background:#e8cfdd}
+.holo-controls{display:flex;justify-content:center;margin:12px 0 0;color:#806879;font-size:11px;line-height:1.5}.holo-controls>span:last-child{display:none}
+.holo-gallery :focus-visible{outline:2px solid #8c4e70;outline-offset:3px}.holo-announcement{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+@keyframes holo-materialize{
+  0%{opacity:0;transform:translateX(-50%) translate3d(var(--arrival-x,0px),var(--arrival-y,45svh),0) perspective(1100px) rotateX(62deg) scale(.045);filter:brightness(2.4) blur(5px)}
+  20%{opacity:1;filter:brightness(1.8) blur(1px)}
+  70%{transform:translateX(-50%) translate3d(0,-10px,0) perspective(1100px) rotateX(-3deg) scale(1.025);filter:brightness(1.08) blur(0)}
+  100%{opacity:1;transform:translateX(-50%) translate3d(0,0,0) perspective(1100px) rotateX(0) scale(1);filter:brightness(1) blur(0)}
+}
+.world-hologram-beam{transform-origin:50% 100%;animation:holo-beam-rise .85s ease-out both}
+.world-hologram-anchor:has(.holo-gallery):after{content:'';position:absolute;left:var(--source-x);top:var(--source-y);width:110px;height:110px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fffcebbb,#ffe3a15c 25%,transparent 70%);animation:holo-book-flash .9s ease-out both}
+@keyframes holo-beam-rise{from{opacity:0;transform:scale(.08,.02)}40%{opacity:1}to{opacity:1;transform:scale(1)}}
+@keyframes holo-book-flash{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.8)}100%{opacity:0;transform:translate(-50%,-50%) scale(3)}}
+@media(max-width:700px){
+ .holo-gallery{top:74px;width:calc(100% - 24px);max-height:calc(100svh - 164px);padding:16px}
+ .holo-header{gap:12px;flex-direction:column;padding-bottom:14px}.holo-header h2{font-size:20px}.holo-header #holo-intro{font-size:12px}.holo-kicker{font-size:9px}.holo-close{align-self:flex-end;min-height:44px;margin-top:-2px}
+ .holo-layout{grid-template-columns:1fr;gap:18px;padding:18px 0}.holo-screen{transform:none}.holo-image{aspect-ratio:16/9;max-height:190px}.holo-info h3{font-size:28px}.holo-description{font-size:14px}.holo-links a{flex:1;font-size:12px;padding:10px}.holo-info dd{font-size:12px}
+ .holo-project-list{grid-template-columns:repeat(3,minmax(0,1fr))}.holo-navigation{gap:6px}.holo-project-list button{font-size:10px;padding:6px;gap:4px}.holo-arrow{width:36px;height:44px;border-radius:5px}
+ .holo-controls>span:first-child{display:none}.holo-controls>span:last-child{display:inline}
+}
+@media(max-height:500px) and (min-width:701px){.holo-gallery{top:74px;max-height:calc(100svh - 88px)}.holo-image{max-height:200px}.holo-header{padding-bottom:12px}.holo-layout{padding:16px 0}}
+@media(prefers-reduced-motion:reduce){.holo-gallery,.world-hologram-beam{animation:none}.world-hologram-anchor:after{display:none}}

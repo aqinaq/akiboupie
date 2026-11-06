@@ -4,7 +4,7 @@ export default function LanguageSwitch({ inline = false, panel }) {
   const choose = next => {
     if (next === language) return
     // Keep the inspected object open after the scene is rebuilt in its new language.
-    if (panel) history.replaceState(null, '', `${location.pathname}${location.search}#${panel}`)
+    if (panel) window.history.replaceState(null, '', `${location.pathname}${location.search}#${panel}`)
     setLanguage(next)
   }
   return <nav className={`language-switch ${inline ? 'language-switch-inline' : ''}`} aria-label={language === 'kk' ? 'Сайт тілі' : 'Website language'}>

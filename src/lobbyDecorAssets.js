@@ -1,0 +1,28 @@
+// Local originals supplied by the owner; kept separate from the 3D geometry.
+export const decorAssets = {
+  'kazakhstan-swag': '/decor/kazakhstan-swag.png',
+  'turquoise-lace': '/decor/turquoise-lace.png',
+  'kazakh-ornament': '/decor/kazakh-ornament.png',
+  'demon-days': '/decor/demon-days.png',
+  'yellow-manga': '/decor/yellow-manga.png',
+  'red-manga': '/decor/red-manga.png',
+  igor: '/decor/igor.png',
+  blond: '/decor/blond.png',
+  lana: '/decor/lana.png',
+  band: '/decor/91.png',
+  'nihao-cats': '/decor/nihao-cats.png',
+  'leather-portrait': '/decor/leather-portrait.png',
+  'blue-night': '/decor/blue-night.png',
+  'stairs-scene': '/decor/stairs-scene.png',
+  'pink-group': '/decor/pink-group.png',
+  'los-angeles': '/decor/los-angeles.png',
+  'new-york': '/decor/new-york.png',
+
+  'shinjuku': '/decor/shinjuku.png',
+  'spain-swag': '/decor/spain-swag.png',
+  'rio': '/decor/rio.png',
+  'green-skater': '/decor/green-skater.png',
+  'orda': '/decor/orda.png',
+  'peace-kitten': '/decor/peace-kitten.png',
+  'lock-in-cat': '/decor/lock-in-cat.png',
+}

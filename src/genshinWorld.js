@@ -1,3 +1,4 @@
+import { buildSakuraPetals } from './sakuraPetals.js'
 import { buildMeadowFlowers } from './meadowFlowers.js'
 import * as THREE from 'three'
 import { mergeVertices, mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
@@ -19,7 +20,17 @@ export function windriseHeight(x, z) {
   if (z < -8 && z > -130) h -= (h + 1.35) * (1 - smooth(4, 8, Math.abs(x - riverX(z)))) * smooth(-8, -18, z)
   return h
 }
-const pathDistance = (x, z) => Math.abs(x - (z > 0 ? Math.sin(z * .12) * 1.7 : Math.sin(z * .07) * 5))
+const studioRoute = [[0,5],[.4,3],[-.3,1],[0,-5.1]]
+const pathDistance = (x, z) => {
+  let distance = Math.abs(x - (z > 0 ? Math.sin(z * .12) * 1.7 : Math.sin(z * .07) * 5))
+  for (let i=1;i<studioRoute.length;i++) {
+    const [ax,az]=studioRoute[i-1], [bx,bz]=studioRoute[i], dx=bx-ax, dz=bz-az
+    const along=clamp(((x-ax)*dx+(z-az)*dz)/(dx*dx+dz*dz),0,1)
+    distance=Math.min(distance,Math.hypot(x-ax-along*dx,z-az-along*dz))
+  }
+  // Reserve the cottage and its little front garden from grass and flowers.
+  return Math.min(distance,Math.max(Math.abs(x)-3.8,Math.abs(z+9.5)-4.8),Math.hypot(x+8,z+8)-2.2,Math.max(Math.abs(x-8.5)-2.7,Math.abs(z+8)-2.1))
+}
 
 export function buildWindrise({ scene, random, wind, textures, onTextureReady }) {
   const mobile = window.innerWidth < 700
@@ -93,7 +104,7 @@ export function buildWindrise({ scene, random, wind, textures, onTextureReady })
   }
   const barkMap = new THREE.CanvasTexture(barkCanvas); barkMap.colorSpace = THREE.SRGBColorSpace; barkMap.wrapS = barkMap.wrapT = THREE.RepeatWrapping; textures.push(barkMap)
   const bark = material('#e2d8b7', { map: barkMap, emissive: '#6f6a4f', emissiveIntensity: .23 }), branchParts = []
-  const leafTransforms = [], leafColors = []
+  const leafTransforms = [], leafColors = [], sakuraTrees = []
   function branch(parent, points, radiusStart, radiusEnd) {
     const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p)))
     const geo = new THREE.TubeGeometry(curve, 12, 1, 9, false), p = geo.attributes.position
@@ -107,6 +118,7 @@ export function buildWindrise({ scene, random, wind, textures, onTextureReady })
     geo.computeVertexNormals(); const m = new THREE.Mesh(geo, bark); m.castShadow = true; m.receiveShadow = true; parent.add(m); branchParts.push(m)
   }
   function tree(x, z, scale = 1, hero = false) {
+    sakuraTrees.push({ x, z, y: windriseHeight(x, z), scale })
     const group = new THREE.Group(); group.position.set(x, windriseHeight(x, z), z); group.scale.setScalar(scale); scene.add(group)
     branch(group, [[0, -.2, 0], [.3, 2, .1], [-.1, 4.5, 0], [.5, 7.8, -.3]], hero ? 1.3 : .7, .28)
     for (let i = 0; i < 7; i++) {
@@ -243,7 +255,8 @@ rockWorld=(modelMatrix*rockVertex).xyz; rockLocal=position; rockNormal=normalize
     petals.instanceMatrix.needsUpdate = true
   }
   updatePetals(0);petals.name='drifting-sakura-petals';scene.add(petals)
+  const sakuraPetals = buildSakuraPetals({ scene, trees: sakuraTrees, random, height: windriseHeight, mobile })
   const village = buildWindVillage({scene,random,height:windriseHeight,material,textures})
   village.obstacles.push({x:-13,z:-23,radius:2.8})
-  return { ...village, flowerField, terrainHeight: windriseHeight, update(dt,time,paused){village.update(dt,time,paused);flowerField.update(dt);if(!paused)updatePetals(time)}, dispose(){skyMap.dispose();leafMap.dispose();barkMap.dispose()} }
+  return { ...village, flowerField, sakuraPetals, terrainHeight: windriseHeight, update(dt,time,paused){village.update(dt,time,paused);flowerField.update(dt);sakuraPetals.update(dt);if(!paused)updatePetals(time)}, dispose(){skyMap.dispose();leafMap.dispose();barkMap.dispose()} }
 }

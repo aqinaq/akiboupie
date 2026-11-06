@@ -1,32 +1,32 @@
-import { localHref } from './i18n.js'
-import { format } from './i18n.js'
-import LanguageSwitch from './LanguageSwitch.jsx'
-import { t } from './i18n.js'
-import React, { useEffect, useState } from 'react'
+import { localHref, format, t } from './i18n.js'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
 import './studio.css'
-import Meadow from './Meadow.jsx'
+import './hologram.css'
+import './treasures.css'
 import './meadow.css'
 import './caseStudy.css'
 import './typography.css'
 import { projects } from './projects.js'
 
+const Portfolio = lazy(() => import('./Portfolio.jsx'))
+
 const Arrow = ({ diagonal = false }) => <span aria-hidden="true">{diagonal ? '↗' : '→'}</span>
 
 function Link({ href, className = '', children, external = false, onClick: onClickProp, ...props }) {
   const isInternal = href?.startsWith('/')
-  if (isInternal) href = localHref(href)
+  const resolvedHref = isInternal ? localHref(href) : href
   const onClick = (event) => {
     onClickProp?.(event)
     if (event.defaultPrevented || !isInternal || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
     event.preventDefault()
-    window.history.pushState({}, '', href)
+    window.history.pushState({}, '', resolvedHref)
     window.dispatchEvent(new PopStateEvent('popstate'))
-    const hash = href.includes('#') ? href.slice(href.indexOf('#')) : ''
+    const hash = resolvedHref.includes('#') ? resolvedHref.slice(resolvedHref.indexOf('#')) : ''
     requestAnimationFrame(() => hash ? document.querySelector(hash)?.scrollIntoView() : window.scrollTo({ top: 0, behavior: 'instant' }))
   }
-  return <a href={href} onClick={onClick} className={className} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})} {...props}>{children}</a>
+  return <a href={resolvedHref} onClick={onClick} className={className} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})} {...props}>{children}</a>
 }
 
 function Mark() { return <Link href="/" className="mark" aria-label={t("Akbope, home")}><span>Akbope</span><i /></Link> }
@@ -34,13 +34,13 @@ function Mark() { return <Link href="/" className="mark" aria-label={t("Akbope, 
 function Header({ theme, toggleTheme }) {
   const [open, setOpen] = useState(false)
   return <header className="site-header">
-    <Mark /><LanguageSwitch inline />
+    <Mark />
     <div className="header-note"><span>{t("Independent by nature")}</span></div>
     <button className="menu-button" aria-expanded={open} aria-controls="navigation" onClick={() => setOpen(!open)}>{open ? t("Close") : t("Menu")}</button>
     <nav id="navigation" className={open ? 'nav-open' : ''} aria-label={t("Main navigation")}>
-      <Link href="/#work" onClick={() => setOpen(false)}>{t("Work")}</Link>
-      <Link href="/#about" onClick={() => setOpen(false)}>{t("About")}</Link>
-      <Link href="/#contact" onClick={() => setOpen(false)}>{t("Contact")}</Link>
+      <Link href="/?room=world#work" onClick={() => setOpen(false)}>{t("Work")}</Link>
+      <Link href="/?room=world#about" onClick={() => setOpen(false)}>{t("About")}</Link>
+      <Link href="/?room=world#contact" onClick={() => setOpen(false)}>{t("Contact")}</Link>
       <button className="theme-button" onClick={toggleTheme} aria-label={format("Use {0} theme", [theme === 'light' ? t('dark') : t('light')])}><i /> {theme === 'light' ? t("Night") : t("Day")}</button>
     </nav>
   </header>
@@ -55,14 +55,14 @@ function ProjectVisual({ project, compact = false }) {
 }
 
 function StoryHeader() {
-  return <header className="story-header"><LanguageSwitch inline /><Link href="/" className="story-signature">Akbope</Link><span>{t("Collected works")}</span><Link href="/#work">{t("← Return to the meadow")}</Link></header>
+  return <header className="story-header"><Link href="/" className="story-signature">Akbope</Link><span>{t("Collected works")}</span><Link href="/?room=world#work">{t("← Return to the meadow")}</Link></header>
 }
 
 
 
 function Footer() { return <footer><p>{t("Made with curiosity in Astana.")}</p><a href="#main-content">{t("Back to top ↑")}</a><span>© {new Date().getFullYear()}</span></footer> }
 
-function Home() { return <Meadow /> }
+function Home() { return <Suspense fallback={<main className="meadow-home"><div className="meadow-loading" role="status">{t("Жайлау жүктеліп жатыр")}</div></main>}><Portfolio /></Suspense> }
 
 function CaseSection({ number, title, children }) { return <section className="case-section"><span>{number}</span><h2>{title}</h2><div className="case-content">{children}</div></section> }
 
@@ -104,7 +104,7 @@ function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('art-hour') || 'dark')
   useEffect(() => { const onRoute = () => setPath(location.pathname); addEventListener('popstate', onRoute); return () => removeEventListener('popstate', onRoute) }, [])
   useEffect(() => { document.documentElement.dataset.theme = theme; localStorage.setItem('art-hour', theme) }, [theme])
-  useEffect(() => { if (path === '/') document.title = t("akbope — Product designer & full-stack developer"); if (location.hash && path === '/') requestAnimationFrame(() => document.querySelector(location.hash)?.scrollIntoView()) }, [path])
+  useEffect(() => { if (path === '/') document.title = "Akbope — Three creative worlds"; if (location.hash && path === '/') requestAnimationFrame(() => document.querySelector(location.hash)?.scrollIntoView()) }, [path])
   const slug = path.startsWith('/work/') ? path.split('/')[2] : null
   const project = projects.find(item => item.slug === slug)
   if (project) return <div className="case-world"><a className="skip-link" href="#main-content">{t("Skip to content")}</a><StoryHeader /><div id="main-content"><CaseStudy key={project.slug} project={project} /></div><footer className="story-footer"><span>{t("Akbope · Astana ·")} {new Date().getFullYear()}</span><a href="#main-content">{t("Back to the beginning ↑")}</a></footer></div>

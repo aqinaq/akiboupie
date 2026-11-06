@@ -1,0 +1,36 @@
+/* Shared case-study treatments; the homepage lives in meadow.css. */
+:root{--serif:'Iowan Old Style','Baskerville','Palatino Linotype',Georgia,serif}
+.cursor-light{display:none}
+.case-page{padding-inline:4.5vw}
+.case-hero{padding-top:5rem}
+.case-hero h1{font-weight:500}
+.case-hero>p:not(.eyebrow){font-size:1.3rem}
+.case-hero dl{margin-top:3rem}
+.project-visual{border-radius:4px}
+.visual-focus{background:#d6dcfa}.visual-agylshyn{background:#e7f48c}.visual-mountain{background:#a7dcd2}.visual-aielts{background:#ded2f2}.visual-optics{background:#becbe4}
+.visual-label{color:#252039!important;font-size:.55rem}
+.visual-grid{background-size:28px 28px;opacity:.25}
+.visual-orbit{border-color:#25203933}
+.project-screenshot{border-radius:4px;border-color:#ffffff80;box-shadow:10px 20px 30px #34341a26}
+.case-content{font-size:.93rem}
+.case-cta{border-radius:4px}
+.case-cta h2{line-height:1}
+.evidence-gallery figure>div{border-radius:4px}
+@media(max-width:680px){
+.case-hero h1{font-size:clamp(3rem,12vw,6rem);overflow-wrap:anywhere}
+.case-hero>p:not(.eyebrow){font-size:1.1rem}
+.case-page>.project-visual{min-height:350px}
+.case-hero dl{grid-template-columns:1fr}
+.case-section{display:block;padding-block:2.5rem}
+.case-section h2{font-size:2.5rem;margin:1rem 0 2rem}
+.case-body{padding-block:2rem}
+.case-cta h2{font-size:3rem}
+.next-project{flex-direction:column;align-items:start;gap:1.5rem}
+.next-project a{font-size:2.5rem}
+.case-crumb{font-size:.55rem}
+.case-hero-actions .pill{gap:1rem}
+}
+/* The case studies share the laboratory’s ink, paper and acid palette. */
+:root{--paper:#e9e7df;--ink:#202122;--muted:#686961;--line:#20212226;--accent:#5d438e;--mint:#eeff75;--signal:#5d438e;--navy:#202122}
+:root[data-theme="dark"]{--paper:#191a1b;--ink:#f0eee6;--muted:#a7a79f;--line:#ffffff24;--accent:#eeff75;--mint:#b29bff;--signal:#eeff75;--navy:#191a1b}
+.case-hero h1,.case-section h2,.case-cta h2,.next-project a{font-family:var(--sans);font-weight:700;letter-spacing:-.06em}.mark{font-family:var(--sans);font-style:normal;font-weight:750}.case-hero h1{font-weight:800}.case-cta{background:#b29bff;color:#202122}.pill-solid{background:var(--accent);color:var(--paper)}

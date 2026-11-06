@@ -1,10 +1,11 @@
 import { t } from './i18n.js'
 import * as THREE from 'three'
+import { createReturnPortal } from './returnPortal.js'
 import { buildWindrise } from './genshinWorld.js'
 import { addChestDetails } from './meadowDetails.js'
 
 // Everything in the meadow is built locally; no model or texture downloads.
-export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspots }) {
+export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspots, onExit }) {
   let renderer
   try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' }) }
   catch { onError(); return { dispose() {}, setOpen() {}, setPaused() {}, setBlocked() {}, move() {}, reset() {} } }
@@ -23,15 +24,18 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
   renderer.domElement.tabIndex = 0
   const camera = new THREE.PerspectiveCamera(56, 1, .1, 260)
   // Keep the viewpoint near human eye level so the yurts read as buildings.
-  const eyeHeight = 2.7, startPitch = .045
-  const start = new THREE.Vector3(0, eyeHeight, 14)
+  const eyeHeight = 3.2, startPitch = .025
+  const start = new THREE.Vector3(0, eyeHeight, 8)
   camera.position.copy(start)
   let yaw = 0, pitch = startPitch
   camera.lookAt(start.x - Math.sin(yaw) * 10, start.y + Math.tan(pitch) * 10, start.z - Math.cos(yaw) * 10)
   let inspectionBlend = 0
+  let studioTravel = null, studioReturn = null
   const returnPosition = start.clone(), returnRotation = camera.quaternion.clone()
   const inspectionPosition = new THREE.Vector3(), inspectionRotation = new THREE.Quaternion()
-  const inspectionTarget = new THREE.Vector3(0, 1.2, -.2)
+  const chestScale = .85
+  const chestLocation = new THREE.Vector3(8.5, 0, -8)
+  const inspectionTarget = chestLocation.clone().add(new THREE.Vector3(0, 1.2 * chestScale, 0))
   const inspectionDirection = new THREE.Vector3(.08, .91, .41).normalize()
   const inspectionMatrix = new THREE.Matrix4(), projectedItem = new THREE.Vector3()
   let viewportWidth = 1, viewportHeight = 1
@@ -44,7 +48,6 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
   let seed = 73621
   const random = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646 }
   const mat = (color, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness: .88, ...extra })
-  const chestScale = 1
   // Pigment, grain and tiny surface imperfections are baked once, locally.
   const textures = []
   const texture = (width, height, paint) => {
@@ -121,6 +124,8 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
   const wind = { value: 0 }
   const countryside = buildWindrise({ scene, random, wind, textures, onTextureReady: () => { renderDirty = true } })
   const terrainHeight = countryside.terrainHeight
+  // The entrance remains physically behind the visitor after arriving.
+  const returnPortal = createReturnPortal({variant:1,textures,color:'#ffdce9',onExit}); scene.add(returnPortal)
   // Small butterflies bring the garden to life without adding interface text.
   const butterflies = []
   const wingShape = new THREE.Shape()
@@ -140,7 +145,7 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
     butterfly.scale.setScalar((.25 + random() * .2)); scene.add(butterfly); butterflies.push(butterfly)
   }
   // Ornamental сандық: a real hollow chest with a hinged lid.
-  const chest = new THREE.Group(); scene.add(chest); chest.rotation.y = .12; chest.scale.setScalar(chestScale)
+  const chest = new THREE.Group(); scene.add(chest); chest.position.copy(chestLocation); chest.position.y = terrainHeight(chestLocation.x, chestLocation.z); inspectionTarget.y += chest.position.y; chest.rotation.y = Math.atan2(start.x - chest.position.x, start.z - chest.position.z); chest.scale.setScalar(chestScale)
   box(chest, wood, [3.2, .16, 1.65], [0, .28, 0])
   box(chest, timber, [3.2, 1.22, .14], [0, .91, .8])
   box(chest, timber, [3.2, 1.22, .14], [0, .91, -.8])
@@ -194,7 +199,7 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
     for (let y = 0; y < h; y += 3) { c.fillStyle = '#eed5f014'; c.fillRect(0, y, w, 1) }
   })
   const inside = box(chest, mat('#f1d4ef', { map: liningMap, roughness: 1, bumpMap: liningMap, bumpScale: .007 }), [2.92, .03, 1.43], [0, .39, 0]); inside.castShadow = false
-  const treasureLight = new THREE.PointLight('#f5c3ed', 0, 6); treasureLight.position.set(0, 1.8 * chestScale, 0); scene.add(treasureLight)
+  const treasureLight = new THREE.PointLight('#f5c3ed', 0, 6); treasureLight.position.set(0, 1.8 * chestScale, 0); treasureLight.position.add(chest.position); scene.add(treasureLight)
   const treasures = []
   const paperMat = mat('#fff4ff', { map: parchment, bumpMap: parchment, bumpScale: .009, side: THREE.DoubleSide })
   const inkSheet = texture(512, 768, (c, w, h) => {
@@ -218,21 +223,11 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
     }
     geometry.computeVertexNormals(); return mesh(geometry, material, parent)
   }
-  for (let i = 0; i < 3; i++) {
+  for (const i of [0, 2]) {
     const item = new THREE.Group(); item.userData.panel = ['about', 'work', 'contact'][i]; chest.add(item)
     if (i === 0) {
       curvedPaper(item, paperMat, .74, 1.04, -.006)
       curvedPaper(item, mat('#ffffff', { map: inkSheet, bumpMap: parchment, bumpScale: .008, side: THREE.DoubleSide }), .73, 1.03, 0)
-    } else if (i === 1) {
-      // A physical emitter rests inside the chest; the projection is anchored to it.
-      const housing = mat('#29465a', { metalness: .65, roughness: .3 })
-      const glow = mat('#9cfff1', { emissive: '#49ddcc', emissiveIntensity: 1.8, roughness: .2 })
-      const base = mesh(new THREE.CylinderGeometry(.34, .4, .12, 32), housing, item, [0, 0, .04])
-      base.rotation.x = Math.PI / 2
-      mesh(new THREE.TorusGeometry(.3, .025, 12, 40), gold, item, [0, 0, .12])
-      mesh(new THREE.TorusGeometry(.23, .012, 8, 40), glow, item, [0, 0, .14])
-      const crystal = mesh(new THREE.OctahedronGeometry(.19), glow, item, [0, 0, .25])
-      crystal.scale.set(1, 1, 1.6)
     } else {
       bevel(item, paperMat, [.81, .57, .022], [0, 0, 0], .018)
       const flap = new THREE.Shape(); flap.moveTo(-.395, .275); flap.lineTo(.395, .275); flap.lineTo(.02, -.1); flap.quadraticCurveTo(0, -.12, -.02, -.1); flap.closePath()
@@ -265,9 +260,14 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
   const resize = () => {
     const { width, height } = host.getBoundingClientRect()
     viewportWidth = width; viewportHeight = height; renderDirty = true
+    // Back up on portrait screens to preserve all three destinations in one view.
+    const previousStartZ = start.z
+    start.z = 8 + Math.max(0, 34 / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * (width / height)) - 20)
+    if (!opened && inspectionBlend === 0 && Math.abs(camera.position.z - previousStartZ) < .01) camera.position.z = start.z
+    returnPortal.position.set(0, terrainHeight(0, start.z + 3), start.z + 3)
     renderer.setSize(width, height); camera.aspect = width / height; camera.updateProjectionMatrix()
     // Fit the entire open chest on narrow screens as well as desktops.
-    const distance = Math.max(5.5, 4.2 / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect * .84))
+    const distance = Math.max(5.5 * chestScale, 4.2 * chestScale / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect * .84))
     inspectionPosition.copy(inspectionDirection).multiplyScalar(distance).add(inspectionTarget)
     inspectionMatrix.lookAt(inspectionPosition, inspectionTarget, camera.up)
     inspectionRotation.setFromRotationMatrix(inspectionMatrix)
@@ -275,14 +275,14 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
   const observer = new window.ResizeObserver(resize); observer.observe(host); resize()
   const clearKeys = () => { keys.clear(); touchPoints.clear(); touchWalking = false; touchForward = 0; touchRight = 0; dragging = null }
   const keydown = event => {
-    if (blocked || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName) || event.target.isContentEditable) return
+    if (blocked || studioTravel || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName) || event.target.isContentEditable) return
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(event.key)) { event.preventDefault(); keys.add(event.key) }
     if (event.key === 'Escape' && opened) { event.preventDefault(); onChest() }
     if (event.key === 'Enter' && !event.repeat && !/^(BUTTON|A)$/.test(event.target.tagName)) { event.preventDefault(); onChest() }
   }
   const keyup = event => keys.delete(event.key)
   const pointerdown = event => {
-    if (blocked) return
+    if (blocked || studioTravel) return
     renderer.domElement.focus({ preventScroll: true }); renderer.domElement.setPointerCapture(event.pointerId)
     if (event.pointerType === 'touch') touchPoints.set(event.pointerId, { x: event.clientX, y: event.clientY })
     if (touchPoints.size > 1) {
@@ -307,7 +307,7 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
       const rect = renderer.domElement.getBoundingClientRect()
       pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1)
       raycaster.setFromCamera(pointer, camera)
-      renderer.domElement.style.cursor = raycaster.intersectObjects([chest], true).length || (!opened && countryside.flowerField.pick(raycaster)) ? 'pointer' : 'grab'
+      renderer.domElement.style.cursor = raycaster.intersectObjects(opened ? [chest] : [chest, returnPortal, ...countryside.studio.targets, ...countryside.about.targets], true).length || (!opened && (countryside.flowerField.pick(raycaster) || countryside.sakuraPetals.pick(raycaster))) ? 'pointer' : 'grab'
       return
     }
     if (!dragging || blocked || opened || inspectionBlend > .001) return
@@ -323,8 +323,14 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
     const rect = renderer.domElement.getBoundingClientRect()
     pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1)
     raycaster.setFromCamera(pointer, camera)
-    const hits = raycaster.intersectObjects([chest], true)
+    const hits = raycaster.intersectObjects(opened ? [chest] : [chest, returnPortal, ...countryside.studio.targets, ...countryside.about.targets], true)
     const flowerHit = !opened && countryside.flowerField.pick(raycaster)
+    const treeHit = !opened && countryside.sakuraPetals.pick(raycaster, Math.min(hits[0]?.distance ?? Infinity, flowerHit?.distance ?? Infinity))
+    if (treeHit) {
+      countryside.sakuraPetals.burst(treeHit.tree, paused)
+      if (import.meta.env.DEV) renderer.domElement.dataset.lastSakuraTree = `${treeHit.tree.x},${treeHit.tree.z}`
+      renderDirty = true; return
+    }
     if (flowerHit && (!hits.length || flowerHit.distance < hits[0].distance)) {
       countryside.flowerField.burst(flowerHit.bloom, paused)
       if (import.meta.env.DEV) renderer.domElement.dataset.lastFlowerColor = flowerHit.bloom.color
@@ -334,7 +340,7 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
       let object = hits[0].object
       while (object && !object.userData.panel && !object.userData.action && object !== chest) object = object.parent
       if (object?.userData.action) { object.userData.activate(); renderDirty = true }
-      else if (object?.userData.panel && opened) onItem(object.userData.panel)
+      else if (object?.userData.panel && (opened || ['work', 'about'].includes(object.userData.panel))) onItem(object.userData.panel)
       else if (object === chest) onChest()
     } else if (opened) onChest()
   }
@@ -350,7 +356,7 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
     const dt = Math.min((now - (previous || now)) / 1000, .05); previous = now
     if (document.hidden) return
     // Reading a still artifact should not keep redrawing shadows at 30 fps.
-    if (blocked && !renderDirty && inspectionBlend === (opened ? 1 : 0) && Math.abs(lid.rotation.x - (opened ? -1.85 : 0)) < .001) return
+    if (blocked && !studioTravel && !renderDirty && inspectionBlend === (opened ? 1 : 0) && Math.abs(lid.rotation.x - (opened ? -1.85 : 0)) < .001) return
     if (!paused && !blocked) {
       elapsed += dt; wind.value = elapsed; motes.rotation.y = elapsed * .015
       butterflies.forEach((butterfly, i) => {
@@ -362,7 +368,7 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
     }
     if (!blocked) { countryside.update(dt, elapsed, paused)
       chestDetails.update(dt, paused, elapsed) }
-    if (!blocked && !opened && inspectionBlend === 0) {
+    if (!blocked && !studioTravel && !opened && inspectionBlend === 0) {
       let forward = Number(keys.has('ArrowUp') || keys.has('w')) - Number(keys.has('ArrowDown') || keys.has('s')) + touchForward
       let right = Number(keys.has('ArrowRight') || keys.has('d')) - Number(keys.has('ArrowLeft') || keys.has('a')) + touchRight
       const length = Math.hypot(forward, right)
@@ -371,11 +377,23 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
         const dx = (-Math.sin(yaw) * forward + Math.cos(yaw) * right) * dt * 4
         const dz = (-Math.cos(yaw) * forward - Math.sin(yaw) * right) * dt * 4
         const nx = camera.position.x + dx, nz = camera.position.z + dz
-        if (!countryside.obstacles.some(o => Math.hypot(nx - o.x, nz - o.z) < o.radius + .5) && Math.hypot(nx, nz) < 60 && !(Math.abs(nx) < 2.15 * chestScale && Math.abs(nz) < 1.65 * chestScale)) { camera.position.x = nx; camera.position.z = nz }
+        if (!countryside.obstacles.some(o => Math.hypot(nx - o.x, nz - o.z) < o.radius + .5) && Math.hypot(nx, nz) < 60 && !(Math.abs(nx - chest.position.x) < 2.15 * chestScale && Math.abs(nz - chest.position.z) < 1.65 * chestScale)) { camera.position.x = nx; camera.position.z = nz }
         camera.position.y = terrainHeight(camera.position.x, camera.position.z) + eyeHeight
       }
     }
-    if (opened || inspectionBlend > 0) {
+    if (studioTravel) {
+      const travel = studioTravel
+      travel.time = Math.min(1, travel.time + (paused ? 1 : dt / 1.4))
+      const blend = travel.time * travel.time * (3 - 2 * travel.time)
+      camera.position.lerpVectors(travel.from, travel.to, blend)
+      camera.quaternion.slerpQuaternions(travel.rotationFrom, travel.rotationTo, blend)
+      if (travel.time === 1) {
+        studioTravel = null
+        const direction = new THREE.Vector3(0,0,-1).applyQuaternion(camera.quaternion)
+        yaw = Math.atan2(-direction.x,-direction.z); pitch = Math.asin(direction.y)
+        travel.done?.()
+      }
+    } else if (opened || inspectionBlend > 0) {
       const targetBlend = opened ? 1 : 0
       inspectionBlend = THREE.MathUtils.lerp(inspectionBlend, targetBlend, paused ? 1 : 1 - Math.exp(-dt * 4))
       if (Math.abs(inspectionBlend - targetBlend) < .001) inspectionBlend = targetBlend
@@ -389,7 +407,11 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
     treasures.concat(chestDetails.items).forEach(item => { item.visible = lid.rotation.x < -.2 })
     // Keyboard/touch hit areas follow the actual objects resting on the lining.
     scene.updateMatrixWorld(true); camera.updateMatrixWorld(true)
-    onHotspots?.([...treasures, ...chestDetails.items].map(item => {
+    onHotspots?.([...treasures, ...chestDetails.items, countryside.studio.anchor, countryside.about.anchor].map(item => {
+      if (item === countryside.studio.anchor || item === countryside.about.anchor) {
+        item.getWorldPosition(projectedItem).project(camera)
+        return { panel: item === countryside.about.anchor ? 'statue' : 'work', x: (projectedItem.x + 1) * viewportWidth / 2, y: (1 - projectedItem.y) * viewportHeight / 2, visible: !opened && inspectionBlend === 0 && projectedItem.z > -1 && projectedItem.z < 1 && Math.abs(projectedItem.x) < .85 && Math.abs(projectedItem.y) < .8 }
+      }
       item.getWorldPosition(projectedItem).project(camera)
       return { pressed: item.userData.glowing, panel: item.userData.panel || item.userData.action, x: (projectedItem.x + 1) * viewportWidth / 2, y: (1 - projectedItem.y) * viewportHeight / 2, visible: opened && inspectionBlend > .96 && lid.rotation.x < -1.5 }
     }))
@@ -398,6 +420,21 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
   }
   frame = requestAnimationFrame(animate); onReady()
   return {
+    approachStudio(done) {
+      if (studioTravel) return
+      studioReturn = {position:camera.position.clone(),rotation:camera.quaternion.clone()}
+      const anchor = countryside.studio.anchor.position
+      const destination = anchor.clone().add(new THREE.Vector3(0,1.6,6.5))
+      const target = anchor.clone().add(new THREE.Vector3(0,1,-3))
+      const matrix = new THREE.Matrix4().lookAt(destination,target,camera.up)
+      studioTravel = {from:camera.position.clone(),to:destination,rotationFrom:camera.quaternion.clone(),rotationTo:new THREE.Quaternion().setFromRotationMatrix(matrix),time:0,done}
+      opened = false; inspectionBlend = 0; clearKeys(); renderDirty = true
+    },
+    leaveStudio() {
+      if (!studioReturn) return
+      studioTravel = {from:camera.position.clone(),to:studioReturn.position,rotationFrom:camera.quaternion.clone(),rotationTo:studioReturn.rotation,time:0}
+      studioReturn = null; clearKeys(); renderDirty = true
+    },
     setOpen(value) {
       if (value === opened) return
       if (value && inspectionBlend === 0) { returnPosition.copy(camera.position); returnRotation.copy(camera.quaternion) }
@@ -405,6 +442,7 @@ export function createMeadow(host, { onReady, onError, onChest, onItem, onHotspo
     }, setPaused(value) { paused = value; renderDirty = true }, setBlocked(value) { blocked = value; renderDirty = true; keys.clear() },
     interact(id) { chestDetails.activate(id); renderDirty = true },
     move(key, active) { if (active) keys.add(key); else keys.delete(key) },
+    lookAtPortal() { if (blocked || opened) return; yaw = Math.atan2(camera.position.x - returnPortal.position.x, camera.position.z - returnPortal.position.z); pitch = 0; renderDirty = true },
     reset() { if (opened) { onChest(); return } inspectionBlend = 0; camera.position.copy(start); yaw = 0; pitch = startPitch; keys.clear(); dragging = null; renderDirty = true },
     dispose() {
       disposed = true; window.cancelAnimationFrame(frame); observer.disconnect()

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akiboupie.vercel.app/sitemap.xml

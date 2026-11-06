@@ -121,3 +121,98 @@
   .meadow-home .meadow-panel-work{width:calc(100% - 38px)}
   .book-page-content{padding-inline:clamp(18px,6vw,29px)}
 }
+
+/* Sakura stationery: fresh ivory paper, blush edges and plum ink. */
+.meadow-home{--stationery-paper:radial-gradient(ellipse at 100% 0%,#f3dae680,transparent 48%),repeating-linear-gradient(0deg,#ac7e9203 0px,#ac7e9203 1px,transparent 1px,transparent 4px),#fffaf5}
+.meadow-home .meadow-dialog{color:#584452}
+.meadow-home .meadow-dialog::backdrop{background:#352c3d45;backdrop-filter:blur(5px)}
+.meadow-dialog .meadow-dialog-close{border:1px solid #d6b5c6;background:#fff8f4;color:#805a74;box-shadow:0 3px 12px #543e5720;right:0}
+.meadow-dialog .meadow-dialog-close:hover{background:#f0dce7;color:#593f54}
+.meadow-dialog :focus-visible{outline-color:#925a76}
+.letter-scroll{transform:none;filter:drop-shadow(0 16px 30px #4d354b30);border-radius:9px;scrollbar-color:#c69aaf #faf0f4}
+.meadow-dialog .personal-letter,.meadow-dialog .contact-letter,.meadow-dialog .letter-scroll .personal-letter{padding:46px 54px;background:var(--stationery-paper);background-size:auto;border:1px solid #d9bccb;border-radius:9px;box-shadow:inset 0 0 0 7px #fffaf5,inset 0 0 0 8px #e4cdda66;transform:none;color:#584452}
+.meadow-dialog .contact-letter{box-shadow:inset 0 0 0 7px #fffaf5,inset 0 0 0 8px #e4cdda66,0 16px 35px #4d354b30;scrollbar-color:#c69aaf #faf0f4}
+.personal-letter:after,.contact-letter:after{width:26px;height:26px;background:linear-gradient(225deg,#e4bfd1 0%,#f5e1eb 47%,#d5b4c533 50%,transparent 54%);border-radius:0 8px 0 0}
+.meadow-dialog .letter-date{display:inline-block;font-size:10px;font-weight:600;font-style:normal;letter-spacing:.17em;color:#966d86;border:0;padding:0 0 12px;position:relative}
+.meadow-dialog .letter-date:after{content:'';position:absolute;left:0;bottom:0;width:42px;height:1px;background:#c79bb1}
+.meadow-dialog .personal-letter h2{color:#65455f;font-size:36px;font-weight:500;line-height:1.2;letter-spacing:-.035em;margin:32px 0 22px}
+.meadow-dialog .personal-letter p{color:#655360;font-size:16px;line-height:1.85;margin-bottom:20px}
+.meadow-dialog .personal-letter .letter-lead{font-size:18px;line-height:1.7;color:#94718a;margin-bottom:28px}
+.meadow-dialog .letter-flower{color:#a38d9b;opacity:1;top:30px;right:42px;width:54px;height:78px;transform:rotate(12deg)}
+.meadow-dialog .letter-flower ellipse,.contact-letter>svg ellipse{fill:#edc6da;stroke:#b58aa3}
+.meadow-dialog .letter-flower circle,.contact-letter>svg circle{fill:#d9b678}
+.meadow-dialog .letter-details{border-color:#d9bdcc80;margin:28px 0;padding:24px 0;align-items:center;gap:25px}
+.meadow-dialog .letter-details img{filter:none;border:5px solid #fffdf9;outline:1px solid #e4cfda;box-shadow:0 5px 12px #714a6820;transform:rotate(-2deg);width:90px;height:112px}
+.meadow-dialog .letter-details dt{font-size:10px;font-style:normal;letter-spacing:.08em;color:#a07b92;margin-bottom:4px}
+.meadow-dialog .letter-details dd{font-size:12px;line-height:1.6;color:#655360}
+.meadow-dialog .letter-signoff,.meadow-dialog .letter-signoff b{color:#805a74}
+.meadow-dialog .letter-signoff{font-size:13px;gap:24px;align-items:center}
+.meadow-dialog .letter-signoff b{font-size:32px;font-weight:500;margin-top:8px}
+.meadow-dialog .letter-signoff a{color:#805a74;font-size:12px;font-style:normal;border-color:#c29aae;padding-bottom:5px}
+.paper-fold{background:var(--stationery-paper);box-shadow:0 5px 12px #9a708b18}
+.meadow-dialog .contact-letter h2{font-size:44px;line-height:1.15;letter-spacing:-.04em;color:#65455f;margin:42px 0 24px}
+.meadow-dialog .contact-letter h2 em{color:#aa7b98}
+.meadow-dialog .contact-letter>p:not(.meadow-eyebrow){color:#80697b;font-size:15px;line-height:1.8}
+.meadow-dialog .contact-letter .meadow-eyebrow{color:#966d86;letter-spacing:.15em;max-width:65%;line-height:1.8}
+.meadow-dialog .envelope-stamp{color:#a07391;border-color:#c09aae;background:#f3e2ea55;border-radius:40% 40% 4px 4px;transform:rotate(8deg);right:42px;top:30px}
+.meadow-dialog .meadow-contact-links a{border-color:#d9bdcc80;color:#72536b;font-size:23px}
+.meadow-dialog .meadow-contact-links a:hover{color:#a2698c}
+.meadow-dialog .meadow-contact-links small{color:#a07b92;font-size:9px;letter-spacing:.12em;margin-top:7px}
+.meadow-dialog .contact-availability i{background:#af91a5}
+.meadow-dialog .contact-letter>svg{color:#a38d9b;opacity:.85}
+@media(max-width:700px){
+ .meadow-dialog .personal-letter,.meadow-dialog .contact-letter,.meadow-dialog .letter-scroll .personal-letter{padding:32px 25px}
+ .meadow-dialog .personal-letter h2{font-size:29px;margin-top:37px;max-width:95%}
+ .meadow-dialog .personal-letter p{font-size:14px;line-height:1.8}.meadow-dialog .personal-letter .letter-lead{font-size:16px;line-height:1.7;margin-bottom:24px}
+ .meadow-dialog .letter-date{font-size:8px;letter-spacing:.13em}.meadow-dialog .letter-flower{right:24px;top:30px;width:40px;height:60px}
+ .meadow-dialog .letter-details{gap:18px;padding:20px 0}.meadow-dialog .letter-details img{width:72px;height:94px;flex-shrink:0}.meadow-dialog .letter-details dt{font-size:9px}.meadow-dialog .letter-details dd{font-size:11px}
+ .meadow-dialog .letter-signoff{align-items:start;flex-wrap:wrap;gap:20px}.meadow-dialog .letter-signoff a{max-width:none}
+ .meadow-dialog .contact-letter h2{font-size:34px}.meadow-dialog .envelope-stamp{right:24px;top:28px}.meadow-dialog .contact-letter>p:not(.meadow-eyebrow){font-size:14px}.meadow-dialog .meadow-contact-links a{font-size:21px}
+ .meadow-dialog .meadow-dialog-close{right:0}
+}
+
+/* The statue projects the biography from its violet stone into the meadow. */
+.meadow-dialog.meadow-panel-about[open]{animation:about-projection-appear .4s ease both}
+.meadow-dialog.meadow-panel-about{position:fixed;inset:72px 4vw auto auto;margin:0;width:min(600px,44vw);max-width:none;max-height:calc(100svh - 166px);overflow:visible;background:transparent;border:0;border-radius:12px;box-shadow:none;color:#f5eaff;isolation:isolate}
+.meadow-dialog.meadow-panel-about::backdrop{background:#21183c19;backdrop-filter:none}
+/* All projection layers share the measured panel bounds and the stone's screen position. */
+.meadow-dialog.meadow-panel-about:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(135deg,#211c48ed,#463466e8);border:1px solid #ddbcffa6;border-radius:inherit;box-shadow:0 0 35px #b679ff55,inset 0 0 30px #bd8bff18}
+.meadow-panel-about .about-projection-beam{position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(0deg,#b47aff12,#d7b3ff66);clip-path:polygon(var(--source-x,48vw) var(--source-y,45svh),var(--projection-left,57vw) var(--projection-top,8svh),var(--projection-right,96vw) var(--projection-top,8svh),var(--projection-right,96vw) var(--projection-bottom,80svh),var(--projection-left,57vw) var(--projection-bottom,80svh))}
+.meadow-panel-about .about-projection-halo{position:absolute;inset:-10px;z-index:-2;pointer-events:none;border:2px solid #daa5ffb3;border-radius:22px;background:transparent;box-shadow:0 0 24px #c88bff88,inset 0 0 18px #ddb2ff66}
+@keyframes about-projection-appear{from{opacity:0}to{opacity:1}}
+.meadow-panel-about .letter-scroll{max-height:calc(100svh - 220px);border-radius:0 0 12px 12px;filter:none;scrollbar-color:#bd8ce9 #34284c}
+.meadow-dialog.meadow-panel-about .letter-scroll .personal-letter{padding:30px 34px;border:0;border-radius:0;background:repeating-linear-gradient(0deg,#e5caff05 0px,#e5caff05 1px,transparent 1px,transparent 5px);box-shadow:none;color:#f5eaff}
+.meadow-panel-about .personal-letter:after,.meadow-panel-about .paper-fold{display:none}
+.meadow-dialog.meadow-panel-about .personal-letter h2{color:#fff1ff;font-size:32px;margin:26px 0 18px}
+.meadow-dialog.meadow-panel-about .personal-letter p{color:#e5d8f4;font:15px/1.8 Arial,sans-serif}
+.meadow-dialog.meadow-panel-about .personal-letter .letter-lead{color:#d2b0f4;font-size:17px}
+.meadow-panel-about .letter-date,.meadow-panel-about .letter-details dt{color:#d2aff2}
+.meadow-panel-about .letter-flower{color:#c799f1;opacity:.5;height:65px}
+.meadow-panel-about .letter-details{border-color:#d9b4ff40}.meadow-panel-about .letter-details dd{color:#f4e8ff}
+.meadow-panel-about .letter-signoff,.meadow-panel-about .letter-signoff a{color:#f1dbff;border-color:#bc8be8}
+.meadow-panel-about .meadow-dialog-close{position:relative;top:0;right:0;width:100%;height:44px;justify-items:end;color:#f4e4ff;background:#d2a3ff12;border-color:#d9b4ff33;border-radius:12px 12px 0 0}
+.meadow-panel-about .letter-details img{border-color:#b98ee1;box-shadow:0 0 20px #c59aff44;transform:none}
+@media(max-width:700px){
+ .meadow-dialog.meadow-panel-about{inset:90px 12px auto;width:calc(100% - 24px);max-height:calc(100svh - 180px)}
+ .meadow-panel-about .letter-scroll{max-height:calc(100svh - 235px)}
+ .meadow-dialog.meadow-panel-about .letter-scroll .personal-letter{padding:26px 24px}
+}
+@media(max-height:500px){.meadow-dialog.meadow-panel-about{top:18px;max-height:calc(100svh - 40px)}.meadow-panel-about .letter-scroll{max-height:calc(100svh - 96px)}}
+
+/* Projection motion stays within its layers so the beam remains attached to the stone. */
+.meadow-dialog.meadow-panel-about[open]{animation:about-projection-appear .6s ease-out both}
+.meadow-panel-about[open]:before{animation:about-panel-form .7s cubic-bezier(.2,.7,.25,1) both,about-panel-glow 4.8s .7s ease-in-out infinite}
+.meadow-panel-about[open] .about-projection-beam{background:repeating-linear-gradient(0deg,transparent 0 50px,#e4c5ff18 76px,transparent 110px),linear-gradient(0deg,#b47aff12,#d7b3ff66);background-size:100% 220px,100% 100%;animation:about-beam-ignite .45s ease-out both,about-beam-flow 7s linear infinite,about-beam-breathe 4.8s ease-in-out infinite}
+.meadow-panel-about[open] .about-projection-halo{animation:about-halo-ignite .65s ease-out both,about-halo-pulse 4.8s .65s ease-in-out infinite}
+.meadow-panel-about[open] .letter-scroll{animation:about-content-appear .65s .18s ease-out both}
+.meadow-panel-about[open]:after{content:'';position:absolute;inset:1px;z-index:2;pointer-events:none;border-radius:inherit;background:linear-gradient(0deg,transparent 43%,#e4caff0c 49%,#e4caff20 50%,transparent 53%);background-size:100% 260%;animation:about-scan 8s linear infinite}
+@keyframes about-panel-form{from{opacity:0;clip-path:inset(100% 0 0 round 12px)}to{opacity:1;clip-path:inset(0 round 12px)}}
+@keyframes about-panel-glow{0%,100%{box-shadow:0 0 28px #b679ff40,inset 0 0 25px #bd8bff12}50%{box-shadow:0 0 46px #b679ff66,inset 0 0 35px #bd8bff24}}
+@keyframes about-beam-ignite{from{opacity:0}to{opacity:1}}
+@keyframes about-beam-flow{from{background-position:0 220px,0 0}to{background-position:0 0,0 0}}
+@keyframes about-beam-breathe{0%,100%{opacity:.65}50%{opacity:1}}
+@keyframes about-halo-ignite{from{opacity:0}to{opacity:1}}
+@keyframes about-halo-pulse{0%,100%{opacity:.72;box-shadow:0 0 20px #c88bff66,inset 0 0 15px #ddb2ff55}50%{opacity:1;box-shadow:0 0 36px #c88bffaa,inset 0 0 24px #ddb2ff88}}
+@keyframes about-content-appear{from{opacity:0}to{opacity:1}}
+@keyframes about-scan{from{background-position:0 150%}to{background-position:0 -150%}}
+@media(prefers-reduced-motion:reduce){.meadow-panel-about[open]:before,.meadow-panel-about[open]:after{animation:none!important}.meadow-panel-about[open]:after{display:none}}

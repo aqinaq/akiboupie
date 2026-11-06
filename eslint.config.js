@@ -3,7 +3,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'tmp', 'akiboupie', 'archive'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -11,6 +11,7 @@ export default [
       sourceType: 'module',
       globals: {
         console: 'readonly', document: 'readonly', window: 'readonly', location: 'readonly',
+        URL: 'readonly', URLSearchParams: 'readonly',
         localStorage: 'readonly', matchMedia: 'readonly', addEventListener: 'readonly',
         removeEventListener: 'readonly', requestAnimationFrame: 'readonly', PopStateEvent: 'readonly'
       },

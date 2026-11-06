@@ -17,3 +17,48 @@ export const translations = [
 translations.push(
 ['Істі өшіру: {0}','Remove task: {0}'],['Идея шеберханасы\n\nМәселе\n{0}\n\nКімге\n{1}\n\nАлғашқы қадам\n{2}','Idea workshop\n\nProblem\n{0}\n\nAudience\n{1}\n\nFirst step\n{2}'],['{0} сілтемелері','Links for {0}'],['{0} тақырыбын қолдану','Use {0} theme'],['{0} жүйесінің ағыны','{0} system flow'],['{0}. {1}. R: қайта бастау; Escape: шығу.','{0}. {1}. R: restart; Escape: exit.'],['Ойын аяқталды · {0} · ↻','Game over · {0} · ↻'],['{0} ұпай · Рекорд {1}{2}','{0} points · Best {1}{2}'],['Барлық 6 жұп табылды! · {0} қадам · ↻','All 6 pairs found! · {0} moves · ↻'],['{0} / 6 жұп · {1} қадам','{0} / 6 pairs · {1} moves'],['Тоғыз жұлдыз оянды! · {0} қадам · ↻','All nine stars are lit! · {0} moves · ↻'],['{0} / 9 жұлдыз · {1} қадам','{0} / 9 stars · {1} moves'],['Мұнара тоқтады · {0} қабат · ↻','Tower stopped · {0} levels · ↻'],['{0} / 12 қабат · Рекорд {1}','{0} / 12 levels · Best {1}'],['0 ұпай · Рекорд {0}','0 points · Best {0}'],['0 / 12 қабат · Рекорд {0}','0 / 12 levels · Best {0}'],['қараңғы','dark'],['ашық','light']
 )
+
+translations.push(
+  ['Жобаларымды көру үшін сандықты аш.', 'Open the chest to discover my projects.'],
+  ['Жобаларымды көру үшін сандықтың ішіндегі кристалды таңда.', 'Select the crystal inside the chest to explore my projects.'],
+  ['Сандықты бас немесе мына пернені бас:', 'Click the chest or press'],
+  ['Кристалды бас', 'Click the crystal'],
+  ['Кристалды түрт', 'Tap the crystal'],
+  ['Бастау үшін сандықты түрт', 'Tap the chest to begin']
+)
+
+translations.push(
+  ['Ақбөпенің шағын әлеміне қош келдің.', 'Welcome to Akbope’s little world.'],
+  ['Менің шағын жинағымды таптың.', 'You found my little collection.'],
+  ['Сандықта — жасаған жобаларым, хатта — менің тарихым, ал конвертте — байланысу жолы. Саяхатың осы жерден басталады.', 'A chest of things I’ve made, a letter about me, and a way to say hello. Your discovery starts here.'],
+  ['Кристалда — жобаларым. Хатта — менің тарихым. Ал конверт — маған сәлем жолдаудың жолы.', 'The crystal holds my projects. The letter tells my story. The envelope is your way to say hello.']
+)
+
+translations.push(
+ ['САНДЫҚТАҒЫ ЖИНАҚ', 'THE CHEST ARCHIVE'],
+ ['Жобаларымды таптың.', 'You discovered my projects.'],
+ ['Жобаны таңда. Жасалу тарихын оқы немесе жұмыс істейтін нұсқасын көр.', 'Choose a project. Discover its story or try the live experience.'],
+ ['Жоба тарихын оқу', 'Read case study'],
+ ['Жұмыс істейтін жобаны ашу', 'Open live project'],
+ ['Жобаны таңдау', 'Choose a project'],
+ ['← → Жобаларды ауыстыру · Esc Жайлауға оралу', '← → Switch projects · Esc Return to meadow'],
+ ['Жобаны ауыстыру үшін суретті сырғыт', 'Swipe the preview to switch projects']
+)
+
+translations.push(
+  ['Жобалар студиясы', 'Project studio'],
+  ['Дизайн · Жасау · Зерттеу', 'Design · Build · Explore'],
+  ['Жобалар журналын ашу', 'Open the project journal'],
+  ['СТУДИЯ ЖУРНАЛЫ', 'THE STUDIO JOURNAL'],
+  ['Хатта — менің тарихым. Конверт — сәлем жолдаудың жолы. Жобаларым үйдегі студияда.', 'The letter tells my story. The envelope is your way to say hello. My projects live in the cottage studio.'],
+  ['Тас жолмен жобалар студиясына бар немесе хат пен шағын естеліктерді көру үшін сандықты аш.', 'Follow the stepping stones to my project studio, or open the chest for a letter and little keepsakes.'],
+  ['Студияны аралау үшін сандықты жап.', 'Close the chest to explore the studio.'],
+  ['«Жобалар студиясы» деген үйге бар.', 'Visit the cottage marked Project studio.'],
+  ['Естелікті таңда', 'Choose a keepsake'],
+  ['Бағыттауыштармен жүр · Сүйреп қара · Студияны басып зертте', 'Arrow keys to walk · Drag to look · Click the studio to explore'],
+  ['Студия белгісін түртіп зертте', 'Tap the studio sign to explore'],
+  ['Күлгін тасты түрт', 'Touch the violet stone'],
+  ['Мүсіннің күлгін тасын түртіп менімен таныс, жобалар үшін студияға бар немесе естеліктер үшін сандықты аш.', 'Touch the statue’s violet stone to meet me, visit the studio for projects, or open the chest for keepsakes.'],
+  ['Үш орын — үш шағын жаңалық.', 'Three places, three little discoveries.'],
+  ['КҮЛГІН ТАСТАН ШЫҚҚАН ГОЛОГРАММА', 'A PROJECTION FROM THE VIOLET STONE']
+)

@@ -3,3 +3,6 @@ dist/
 .DS_Store
 .sites-runtime/
 akiboupie/
+tmp/
+__pycache__/
+*.py[cod]
